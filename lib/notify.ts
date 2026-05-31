@@ -12,7 +12,8 @@ export async function sendNotifications({
   message?: string
   status?: 'confirmed' | 'declined'
 }) {
-  const emails = [process.env.NOTIFY_EMAIL_1!, process.env.NOTIFY_EMAIL_2!]
+  // Resend free tier: send to verified email, CC to mariés
+  const emails = ['simodarel5@gmail.com']
   const phones = [process.env.NOTIFY_WHATSAPP_1!, process.env.NOTIFY_WHATSAPP_2!]
 
   const isRsvp = type === 'rsvp'
@@ -40,9 +41,11 @@ export async function sendNotifications({
       await resend.emails.send({
         from: 'Mariage Ingrid & Ulrich <onboarding@resend.dev>',
         to: email,
+        cc: ['romualdmyo@gmail.com', 'leticianoumsi54@yahoo.com'],
         subject,
         html: `<div style="font-family:Georgia,serif;max-width:500px;margin:0 auto;padding:2rem;background:#eef5fb;border-radius:16px;">
-          <h2 style="color:#1a3a5c">💍 Ingrid & Ulrich — 31 Juillet 2026</h2>
+          <h2 style="color:#0047AB">💍 Ingrid & Ulrich — 31 Juillet 2026</h2>
+          <p style="color:#666;font-size:0.8rem">Destinataires : leticianoumsi54@yahoo.com · romuldich@gmail.com</p>
           ${htmlBody}
         </div>`
       })
