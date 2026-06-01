@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase'
 import { sendNotifications } from '@/lib/notify'
+import { appendToSheet } from '@/lib/sheets'
 
 export async function POST(req: NextRequest) {
   try {
@@ -11,7 +12,19 @@ export async function POST(req: NextRequest) {
     const { error } = await db.from('rsvps').insert({ name, status, group_name, side })
     if (error) throw error
 
+    // Send email notification
     await sendNotifications({ type: 'rsvp', name, group: group_name, side, status })
+
+    // Add to Google Sheet
+    const now = new Date().toLocaleString('fr-FR', { timeZone: 'Africa/Douala' })
+    await appendToSheet([
+      name,
+      group_name || '-',
+      side === 'marie' ? 'Marié' : side === 'mariee' ? 'Mariée' : '-',
+      status === 'confirmed' ? 'Confirmé ✅' : 'Décliné ❌',
+      now
+    ])
+
     return NextResponse.json({ success: true })
   } catch (e) {
     console.error(e)
