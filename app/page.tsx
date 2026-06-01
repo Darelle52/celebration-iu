@@ -207,9 +207,7 @@ export default function Home() {
           {sectionTag('Bienvenue')}
           {sectionTitle(<>Cher(e) <em style={{ fontStyle: 'italic' }}>Invité(e)</em></>)}
           {divider}
-          <div style={{ textAlign: 'center', margin: '1.2rem 0' }}>
-            <img src="/rings.avif" alt="Alliances" style={{ width: 80, height: 'auto' }} />
-          </div>
+          <div style={{ textAlign: "center", margin: "1.5rem 0" }}><svg width="70" height="32" viewBox="0 0 70 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="22" cy="16" r="13" stroke="#C9A84C" strokeWidth="2.5" fill="none"/><circle cx="48" cy="16" r="13" stroke="#0047AB" strokeWidth="2.5" fill="none"/></svg></div>
           <p style={{ fontSize: '.88rem', lineHeight: 1.9, color: muted, fontWeight: 300 }}>
             Vous êtes cordialement invité(e) à la célébration de notre mariage et nous serons ravis de partager ce nouveau chapitre de notre vie avec ceux qui nous sont chers.
           </p>
@@ -427,3 +425,4 @@ export default function Home() {
     </>
   )
 }
+
