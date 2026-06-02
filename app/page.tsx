@@ -298,7 +298,7 @@ export default function Home() {
       </section>
 
       {/* RSVP */}
-      <section id="rsvp" style={{ background: '#fff', padding: '4rem 1.5rem', '--section-color': '#003380', '--section-muted': '#5a6a7a' } as React.CSSProperties}>
+      <section id="rsvp" style={{ background: '#003380', padding: '4rem 1.5rem' }}>
         <div style={{ maxWidth: 560, margin: '0 auto' }}>
           <div className="reveal"><div style={{ fontSize: '.58rem', letterSpacing: '.25em', textTransform: 'uppercase' as const, color: gold, fontWeight: 600, marginBottom: '.8rem', display: 'flex', alignItems: 'center', gap: '.6rem' }}>
               <span style={{ display: 'block', width: 20, height: 2, background: gold, borderRadius: 2 }} />
@@ -409,7 +409,7 @@ export default function Home() {
       </section>
 
       {/* MOTS DOUX */}
-      <section id="mots" style={{ background: '#fff', padding: '4rem 1.5rem', '--section-color': '#003380', '--section-muted': '#5a6a7a' } as React.CSSProperties}>
+      <section id="mots" style={{ background: '#003380', padding: '4rem 1.5rem' }}>
         <div style={{ maxWidth: 560, margin: '0 auto' }}>
           <div className="reveal">{sectionTag("Livre d'or")}{sectionTitle('Mots Doux')}{divider}
             <p style={{ fontSize: '.8rem', color: 'rgba(255,255,255,.75)', marginBottom: '1.5rem' }}>Laissez un message aux mariés ✉️</p>
