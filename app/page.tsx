@@ -74,7 +74,7 @@ export default function Home() {
 
   const toggleMusic = () => {
     if (!audioRef.current) {
-      const audio = new Audio('https://cuybzacngvrcrjcjfsdy.supabase.co/storage/v1/object/public/audio/goodness-of-god.m4a')
+      const audio = new Audio('/music/goodness-of-god.m4a')
       audio.currentTime = 70 // Start at 1min 10s
       audio.loop = true
       audio.volume = 0.4
@@ -180,9 +180,9 @@ export default function Home() {
 
   const divider = (
     <div style={{ display: 'flex', alignItems: 'center', gap: '.8rem', margin: '1.2rem 0' }}>
-      <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,.2)' }} />
+      <div style={{ flex: 1, height: 1, background: 'rgba(201,168,76,.4)' }} />
       <div style={{ width: 8, height: 8, background: gold, transform: 'rotate(45deg)', flexShrink: 0 }} />
-      <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,.2)' }} />
+      <div style={{ flex: 1, height: 1, background: 'rgba(201,168,76,.4)' }} />
     </div>
   )
 
@@ -298,11 +298,20 @@ export default function Home() {
       </section>
 
       {/* RSVP */}
-      <section id="rsvp" style={{ background: '#fff', padding: '4rem 1.5rem' }}>
+      <section id="rsvp" style={{ background: '#fff', padding: '4rem 1.5rem', '--section-color': '#003380', '--section-muted': '#5a6a7a' } as React.CSSProperties}>
         <div style={{ maxWidth: 560, margin: '0 auto' }}>
-          <div className="reveal">{sectionTag('Confirmation')}{sectionTitle('Votre présence')}{divider}</div>
+          <div className="reveal"><div style={{ fontSize: '.58rem', letterSpacing: '.25em', textTransform: 'uppercase' as const, color: gold, fontWeight: 600, marginBottom: '.8rem', display: 'flex', alignItems: 'center', gap: '.6rem' }}>
+              <span style={{ display: 'block', width: 20, height: 2, background: gold, borderRadius: 2 }} />
+              Confirmation
+            </div>
+            <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(1.8rem,6vw,2.8rem)', fontWeight: 600, color: '#003380', lineHeight: 1.1, marginBottom: '1rem' }}>Votre présence</h2>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '.8rem', margin: '1.2rem 0' }}>
+              <div style={{ flex: 1, height: 1, background: 'rgba(201,168,76,.4)' }} />
+              <div style={{ width: 8, height: 8, background: gold, transform: 'rotate(45deg)', flexShrink: 0 }} />
+              <div style={{ flex: 1, height: 1, background: 'rgba(201,168,76,.4)' }} />
+            </div></div>
           <div className="reveal" style={{ background: '#fff', borderRadius: 20, padding: '2rem 1.4rem', boxShadow: '0 4px 40px rgba(0,71,171,.1)', border: `1px solid ${border}`, marginTop: '1.5rem' }}>
-            <p style={{ fontSize: '.76rem', color: muted, marginBottom: '1.3rem', textAlign: 'center' as const }}>Confirmez votre venue pour ce grand jour</p>
+            <p style={{ fontSize: '.76rem', color: '#5a6a7a', marginBottom: '1.3rem', textAlign: 'center' as const }}>Confirmez votre venue pour ce grand jour</p>
             {rsvpState === 'idle' && (
               <>
                 <input value={rsvpName} onChange={e => setRsvpName(e.target.value)} placeholder="Votre nom complet…"
@@ -400,7 +409,7 @@ export default function Home() {
       </section>
 
       {/* MOTS DOUX */}
-      <section id="mots" style={{ background: '#fff', padding: '4rem 1.5rem' }}>
+      <section id="mots" style={{ background: '#fff', padding: '4rem 1.5rem', '--section-color': '#003380', '--section-muted': '#5a6a7a' } as React.CSSProperties}>
         <div style={{ maxWidth: 560, margin: '0 auto' }}>
           <div className="reveal">{sectionTag("Livre d'or")}{sectionTitle('Mots Doux')}{divider}
             <p style={{ fontSize: '.8rem', color: 'rgba(255,255,255,.75)', marginBottom: '1.5rem' }}>Laissez un message aux mariés ✉️</p>
