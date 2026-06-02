@@ -68,7 +68,26 @@ export default function Home() {
   const [msgFam, setMsgFam] = useState('')
   const [msgLoading, setMsgLoading] = useState(false)
   const [toast, setToast] = useState({ msg: '', show: false })
+  const [musicPlaying, setMusicPlaying] = useState(false)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
   const toastRef = useRef<ReturnType<typeof setTimeout>>()
+
+  const toggleMusic = () => {
+    if (!audioRef.current) {
+      const audio = new Audio('/music/goodness-of-god.m4a')
+      audio.currentTime = 70 // Start at 1min 10s
+      audio.loop = true
+      audio.volume = 0.4
+      audioRef.current = audio
+    }
+    if (musicPlaying) {
+      audioRef.current.pause()
+      setMusicPlaying(false)
+    } else {
+      audioRef.current.play()
+      setMusicPlaying(true)
+    }
+  }
 
   const showToast = (msg: string) => {
     if (toastRef.current) clearTimeout(toastRef.current)
@@ -207,8 +226,11 @@ export default function Home() {
           {sectionTag('Bienvenue')}
           {sectionTitle(<>Cher(e) <em style={{ fontStyle: 'italic' }}>Invité(e)</em></>)}
           {divider}
-          <div style={{ textAlign: 'center', margin: '1.2rem 0' }}>
-            <img src="/rings.avif" alt="Alliances" style={{ width: 80, height: 'auto' }} />
+          <div style={{ textAlign: 'center', margin: '1.5rem 0' }}>
+            <svg width="60" height="28" viewBox="0 0 60 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="20" cy="14" r="12" stroke="#C9A84C" strokeWidth="2.5" fill="none"/>
+              <circle cx="40" cy="14" r="12" stroke="#0047AB" strokeWidth="2.5" fill="none"/>
+            </svg>
           </div>
           <p style={{ fontSize: '.88rem', lineHeight: 1.9, color: muted, fontWeight: 300 }}>
             Vous êtes cordialement invité(e) à la célébration de notre mariage et nous serons ravis de partager ce nouveau chapitre de notre vie avec ceux qui nous sont chers.
@@ -257,7 +279,7 @@ export default function Home() {
           <div className="reveal">{sectionTag('Déroulement')}{sectionTitle('Programme')}{divider}</div>
           <div className="reveal" style={{ marginTop: '1.5rem' }}>
             {[
-              { icon: '🏛️', time: '9h00',  name: 'Cérémonie Civile',     desc: "Échange des vœux officiels devant l'État.", last: false },
+              { icon: '🏛️', time: '9h00',  name: 'Cérémonie Civile',     desc: "Échange des vœux officiels.", last: false },
               { icon: '⛪',  time: '10h30', name: 'Cérémonie Religieuse', desc: "Bénédiction de l'union devant Dieu et nos proches.", last: false },
               { icon: '🎉',  time: '12h30', name: 'La Dote',              desc: 'Célébration culturelle à Peter Metam, Bandjoun.', last: true },
             ].map(({ icon, time, name, desc, last }) => (
@@ -328,10 +350,13 @@ export default function Home() {
                   <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '1.5rem', fontWeight: 600, marginBottom: '.2rem', position: 'relative', zIndex: 1 }}>Ingrid &amp; Ulrich</div>
                   <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '1rem', fontStyle: 'italic', opacity: .9, marginBottom: '.6rem', position: 'relative', zIndex: 1 }}>{confirmedData.name}</div>
                   <div style={{ fontSize: '.58rem', letterSpacing: '.12em', textTransform: 'uppercase' as const, padding: '.3rem .8rem', borderRadius: 50, background: 'rgba(255,255,255,.2)', display: 'inline-block', marginBottom: '.6rem', position: 'relative', zIndex: 1 }}>
-                    {confirmedData.group} · {confirmedData.side === 'marie' ? 'Marié' : 'Mariée'}
+                    ({confirmedData.group}) · {confirmedData.side === 'marie' ? 'Marié' : 'Mariée'}
                   </div>
                   <div style={{ fontSize: '.7rem', opacity: .85, marginBottom: '.15rem', position: 'relative', zIndex: 1 }}>📅 Vendredi 31 Juillet 2026</div>
-                  <div style={{ fontSize: '.65rem', opacity: .7, position: 'relative', zIndex: 1 }}>📍 Peter Metam, Bandjoun</div>
+                  <div style={{ fontSize: '.65rem', opacity: .7, marginBottom: '.8rem', position: 'relative', zIndex: 1 }}>📍 Peter Metam, Bandjoun</div>
+                  <div style={{ fontSize: '.72rem', opacity: .9, fontStyle: 'italic', lineHeight: 1.5, padding: '0 .5rem', position: 'relative', zIndex: 1 }}>
+                    Merci d'avoir confirmé votre présence au mariage. Nous serons ravis de célébrer ce moment avec vous.
+                  </div>
                 </div>
                 <button onClick={() => {
                   const card = document.getElementById('confirm-card')
@@ -418,6 +443,19 @@ export default function Home() {
         <div>31 Juillet 2026 &nbsp;·&nbsp; Bandjoun</div>
         <div style={{ marginTop: '.8rem', fontSize: '.6rem' }}>Nous avons hâte de vivre ce moment avec vous 💙</div>
       </footer>
+
+      {/* MUSIC BUTTON */}
+      <button onClick={toggleMusic} style={{
+        position: 'fixed', bottom: '1.5rem', right: '1.2rem', zIndex: 400,
+        width: 46, height: 46, borderRadius: '50%',
+        background: musicPlaying ? '#0047AB' : 'rgba(0,71,171,0.85)',
+        color: '#fff', border: 'none', cursor: 'pointer',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        fontSize: '1.2rem', boxShadow: '0 4px 16px rgba(0,71,171,.35)',
+        backdropFilter: 'blur(8px)'
+      }}>
+        {musicPlaying ? '🔊' : '🔇'}
+      </button>
 
       {/* TOAST */}
       <div style={{ position: 'fixed', bottom: '1.5rem', left: '50%', transform: `translateX(-50%) translateY(${toast.show ? '0' : '120px'})`, background: blueDark, color: '#fff', padding: '.75rem 1.4rem', borderRadius: 50, fontSize: '.76rem', fontWeight: 500, boxShadow: '0 4px 24px rgba(0,0,0,.25)', transition: 'transform .4s cubic-bezier(.34,1.56,.64,1)', zIndex: 500, whiteSpace: 'nowrap' as const, maxWidth: '90vw', textAlign: 'center' as const }}>
