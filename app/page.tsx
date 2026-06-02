@@ -7,8 +7,8 @@ const GROOM_GROUPS = [
   { name: "Moniteurs",                            bg: "#1e3a5c", fg: "#fff" },
   { name: "Tchakaliseurs",                        bg: "#5B2D8E", fg: "#fff" },
   { name: "Amis et connaissances",                bg: "#1B5E20", fg: "#fff" },
-  { name: "Ancien d'église Ndogbong",             bg: "#37474F", fg: "#fff" },
-  { name: "Famille de Nyalla",                    bg: "#7B1A2E", fg: "#fff" },
+  { name: "Ancien et Conseillers",             bg: "#37474F", fg: "#fff" },
+  { name: "Famille ",                    bg: "#7B1A2E", fg: "#fff" },
   { name: "Amis (Stephanie)",                     bg: "#880E4F", fg: "#fff" },
   { name: "Amis (Inès)",                          bg: "#4E342E", fg: "#fff" },
   { name: "Amis (Telly)",                         bg: "#00695C", fg: "#fff" },
@@ -139,7 +139,7 @@ export default function Home() {
       showToast('Présence confirmée ! 🎉')
     } catch { showToast('Erreur, réessayez') }
     finally { setRsvpLoading(false) }
-  }
+  } 
 
   const handleDecline = async () => {
     await fetch('/api/rsvp', {
@@ -251,7 +251,7 @@ export default function Home() {
           <div style={{ gridColumn: '1/-1', background: '#fff', borderRadius: 16, padding: '1.4rem 1rem', textAlign: 'center' as const, border: `1px solid ${border}`, boxShadow: '0 2px 16px rgba(0,71,171,.06)' }}>
             <div style={{ width: 42, height: 42, background: blueLight, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto .75rem', fontSize: '1.1rem' }}>📍</div>
             <div style={{ fontSize: '.55rem', letterSpacing: '.2em', textTransform: 'uppercase' as const, color: blue, fontWeight: 600, marginBottom: '.4rem' }}>Lieu</div>
-            <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '1.15rem', color: textColor, lineHeight: 1.3 }}>Peter Metam, Bandjoun</div>
+            <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '1.15rem', color: textColor, lineHeight: 1.3 }}>Pête Metam, Bandjoun</div>
           </div>
         </div>
       </section>
@@ -281,7 +281,7 @@ export default function Home() {
             {[
               { icon: '🏛️', time: '9h00',  name: 'Cérémonie Civile',     desc: "Échange des vœux officiels.", last: false },
               { icon: '⛪',  time: '10h30', name: 'Cérémonie Religieuse', desc: "Bénédiction de l'union devant Dieu et nos proches.", last: false },
-              { icon: '🎉',  time: '12h30', name: 'La Dote',              desc: 'Célébration culturelle à Peter Metam, Bandjoun.', last: true },
+              { icon: '🎉',  time: '12h30', name: 'La Dote',              desc: 'Célébration culturelle.', last: true },
             ].map(({ icon, time, name, desc, last }) => (
               <div key={name} style={{ display: 'flex', gap: '1.1rem', paddingBottom: last ? 0 : '2rem', position: 'relative' }}>
                 {!last && <div style={{ position: 'absolute', left: 19, top: 40, bottom: 0, width: 1, background: border }} />}
@@ -359,7 +359,7 @@ export default function Home() {
                   <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '1.5rem', fontWeight: 600, marginBottom: '.2rem', position: 'relative', zIndex: 1 }}>Ingrid &amp; Ulrich</div>
                   <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '1rem', fontStyle: 'italic', opacity: .9, marginBottom: '.6rem', position: 'relative', zIndex: 1 }}>{confirmedData.name}</div>
                   <div style={{ fontSize: '.72rem', opacity: .9, fontStyle: 'italic', lineHeight: 1.5, padding: '0 .5rem', marginBottom: '.6rem', position: 'relative', zIndex: 1 }}>
-                    Merci d'avoir confirmé votre présence au mariage. Nous serons ravis de célébrer ce moment avec vous.
+                    Merci d'avoir confirmé votre présence. Nous serons ravis de célébrer ce moment avec vous.
                   </div>
                   <div style={{ fontSize: '.58rem', letterSpacing: '.12em', textTransform: 'uppercase' as const, padding: '.3rem .8rem', borderRadius: 50, background: 'rgba(255,255,255,.2)', display: 'inline-block', position: 'relative', zIndex: 1 }}>
                     ({confirmedData.group}) · {confirmedData.side === 'marie' ? 'Marié' : 'Mariée'}
@@ -392,14 +392,14 @@ export default function Home() {
       <section id="localisation" style={{ padding: '4rem 1.5rem', background: '#003380' }}>
         <div style={{ maxWidth: 560, margin: '0 auto' }}>
           <div className="reveal">{sectionTag('Itinéraire')}{sectionTitle('Localisation')}{divider}
-            <p style={{ fontSize: '.8rem', color: 'rgba(255,255,255,.75)' }}>Centre-ville de Bandjoun → Peter Metam</p>
+            <p style={{ fontSize: '.8rem', color: 'rgba(255,255,255,.75)' }}>Centre-ville de Bandjoun → Pête Metam</p>
           </div>
           <div className="reveal" style={{ borderRadius: 16, overflow: 'hidden', boxShadow: '0 4px 24px rgba(0,71,171,.1)', height: 230, margin: '1.5rem 0', border: `1px solid ${border}` }}>
             <iframe src="https://www.google.com/maps/embed?pb=!1m24!1m8!1m3!1d7963.2!2d10.412!3d5.377!3m2!1i1024!2i768!4f13.1!4m13!3e2!4m5!1s0x105f3ba7c96c75a5%3A0xb3f3a2e0c8012345!2sBandjoun%20Centre%2C%20Cameroun!3m2!1d5.3756!2d10.4075!4m5!1s0x105f3ba7c96c75a5%3A0xb3f3a2e0c8023456!2sPeter%20Metam%2C%20Bandjoun!3m2!1d5.3800!2d10.4165!5e0!3m2!1sfr!2scm!4v1"
               width="100%" height="100%" style={{ border: 'none' }} allowFullScreen loading="lazy" />
           </div>
           <div className="reveal" style={{ textAlign: 'center' as const }}>
-            <p style={{ fontSize: '.78rem', color: 'rgba(255,255,255,.75)', lineHeight: 1.8, marginBottom: '1rem' }}>🔵 Départ : Centre-ville de Bandjoun<br />🔴 Arrivée : Peter Metam</p>
+            <p style={{ fontSize: '.78rem', color: 'rgba(255,255,255,.75)', lineHeight: 1.8, marginBottom: '1rem' }}>🔵 Départ : Centre-ville de Bandjoun<br />🔴 Arrivée : Pête Metam</p>
             <a href="https://maps.google.com/?saddr=Bandjoun+Centre+Cameroun&daddr=Peter+Metam+Bandjoun+Cameroun" target="_blank" rel="noopener noreferrer"
               style={{ display: 'inline-flex', alignItems: 'center', gap: '.5rem', background: blue, color: '#fff', padding: '.8rem 1.6rem', borderRadius: 50, textDecoration: 'none', fontSize: '.68rem', letterSpacing: '.1em', textTransform: 'uppercase' as const, fontWeight: 600, boxShadow: '0 4px 14px rgba(0,71,171,.3)' }}>
               📍 Lancer la navigation
