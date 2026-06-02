@@ -349,13 +349,11 @@ export default function Home() {
                   <div style={{ fontSize: '.55rem', letterSpacing: '.2em', textTransform: 'uppercase' as const, opacity: .75, marginBottom: '.3rem', position: 'relative', zIndex: 1 }}>Mariage · Invitation</div>
                   <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '1.5rem', fontWeight: 600, marginBottom: '.2rem', position: 'relative', zIndex: 1 }}>Ingrid &amp; Ulrich</div>
                   <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '1rem', fontStyle: 'italic', opacity: .9, marginBottom: '.6rem', position: 'relative', zIndex: 1 }}>{confirmedData.name}</div>
-                  <div style={{ fontSize: '.58rem', letterSpacing: '.12em', textTransform: 'uppercase' as const, padding: '.3rem .8rem', borderRadius: 50, background: 'rgba(255,255,255,.2)', display: 'inline-block', marginBottom: '.6rem', position: 'relative', zIndex: 1 }}>
-                    ({confirmedData.group}) · {confirmedData.side === 'marie' ? 'Marié' : 'Mariée'}
-                  </div>
-                  <div style={{ fontSize: '.7rem', opacity: .85, marginBottom: '.15rem', position: 'relative', zIndex: 1 }}>📅 Vendredi 31 Juillet 2026</div>
-                  <div style={{ fontSize: '.65rem', opacity: .7, marginBottom: '.8rem', position: 'relative', zIndex: 1 }}>📍 Peter Metam, Bandjoun</div>
-                  <div style={{ fontSize: '.72rem', opacity: .9, fontStyle: 'italic', lineHeight: 1.5, padding: '0 .5rem', position: 'relative', zIndex: 1 }}>
+                  <div style={{ fontSize: '.72rem', opacity: .9, fontStyle: 'italic', lineHeight: 1.5, padding: '0 .5rem', marginBottom: '.6rem', position: 'relative', zIndex: 1 }}>
                     Merci d'avoir confirmé votre présence au mariage. Nous serons ravis de célébrer ce moment avec vous.
+                  </div>
+                  <div style={{ fontSize: '.58rem', letterSpacing: '.12em', textTransform: 'uppercase' as const, padding: '.3rem .8rem', borderRadius: 50, background: 'rgba(255,255,255,.2)', display: 'inline-block', position: 'relative', zIndex: 1 }}>
+                    ({confirmedData.group}) · {confirmedData.side === 'marie' ? 'Marié' : 'Mariée'}
                   </div>
                 </div>
                 <button onClick={() => {
