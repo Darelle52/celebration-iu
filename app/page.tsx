@@ -74,7 +74,7 @@ export default function Home() {
 
   const toggleMusic = () => {
     if (!audioRef.current) {
-      const audio = new Audio('/music/goodness-of-god.m4a'); audio.preload = 'auto'
+      const audio = new Audio('/music/goodness-of-god.m4a')
       audio.currentTime = 70 // Start at 1min 10s
       audio.loop = true
       audio.volume = 0.4
@@ -168,21 +168,21 @@ export default function Home() {
   const border = '#dce8f8', muted = '#5a6a7a', textColor = '#1a1a2e'
 
   const sectionTag = (label: string) => (
-    <div style={{ fontSize: '.58rem', letterSpacing: '.25em', textTransform: 'uppercase' as const, color: blue, fontWeight: 600, marginBottom: '.8rem', display: 'flex', alignItems: 'center', gap: '.6rem' }}>
-      <span style={{ display: 'block', width: 20, height: 2, background: blue, borderRadius: 2 }} />
+    <div style={{ fontSize: '.58rem', letterSpacing: '.25em', textTransform: 'uppercase' as const, color: gold, fontWeight: 600, marginBottom: '.8rem', display: 'flex', alignItems: 'center', gap: '.6rem' }}>
+      <span style={{ display: 'block', width: 20, height: 2, background: gold, borderRadius: 2 }} />
       {label}
     </div>
   )
 
   const sectionTitle = (text: React.ReactNode) => (
-    <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(1.8rem,6vw,2.8rem)', fontWeight: 600, color: textColor, lineHeight: 1.1, marginBottom: '1rem' }}>{text}</h2>
+    <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(1.8rem,6vw,2.8rem)', fontWeight: 600, color: '#fff', lineHeight: 1.1, marginBottom: '1rem' }}>{text}</h2>
   )
 
   const divider = (
     <div style={{ display: 'flex', alignItems: 'center', gap: '.8rem', margin: '1.2rem 0' }}>
-      <div style={{ flex: 1, height: 1, background: border }} />
+      <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,.2)' }} />
       <div style={{ width: 8, height: 8, background: gold, transform: 'rotate(45deg)', flexShrink: 0 }} />
-      <div style={{ flex: 1, height: 1, background: border }} />
+      <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,.2)' }} />
     </div>
   )
 
@@ -221,7 +221,7 @@ export default function Home() {
       </section>
 
       {/* INVITATION */}
-      <section id="invitation" style={{ padding: '4rem 1.5rem', background: '#fff' }}>
+      <section id="invitation" style={{ padding: '4rem 1.5rem', background: '#003380' }}>
         <div style={{ maxWidth: 560, margin: '0 auto' }} className="reveal">
           {sectionTag('Bienvenue')}
           {sectionTitle(<>Cher(e) <em style={{ fontStyle: 'italic' }}>Invité(e)</em></>)}
@@ -232,14 +232,14 @@ export default function Home() {
               <circle cx="40" cy="14" r="12" stroke="#0047AB" strokeWidth="2.5" fill="none"/>
             </svg>
           </div>
-          <p style={{ fontSize: '.88rem', lineHeight: 1.9, color: muted, fontWeight: 300 }}>
+          <p style={{ fontSize: '.88rem', lineHeight: 1.9, color: 'rgba(255,255,255,.8)', fontWeight: 300 }}>
             Vous êtes cordialement invité(e) à la célébration de notre mariage et nous serons ravis de partager ce nouveau chapitre de notre vie avec ceux qui nous sont chers.
           </p>
         </div>
       </section>
 
       {/* DETAILS */}
-      <section style={{ padding: '2rem 1.5rem 3.5rem', background: blueLight }}>
+      <section style={{ padding: '2rem 1.5rem 3.5rem', background: '#003380' }}>
         <div style={{ maxWidth: 560, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '.9rem' }} className="reveal">
           {[{ icon: '📅', label: 'Date', val: 'Vendredi\n31 Juillet 2026' }, { icon: '⏰', label: 'Heure', val: 'À partir\nde 9h00' }].map(({ icon, label, val }) => (
             <div key={label} style={{ background: '#fff', borderRadius: 16, padding: '1.4rem 1rem', textAlign: 'center' as const, border: `1px solid ${border}`, boxShadow: '0 2px 16px rgba(0,71,171,.06)' }}>
@@ -274,7 +274,7 @@ export default function Home() {
       </section>
 
       {/* PROGRAMME */}
-      <section id="programme" style={{ padding: '4rem 1.5rem', background: '#fff' }}>
+      <section id="programme" style={{ padding: '4rem 1.5rem', background: '#003380' }}>
         <div style={{ maxWidth: 560, margin: '0 auto' }}>
           <div className="reveal">{sectionTag('Déroulement')}{sectionTitle('Programme')}{divider}</div>
           <div className="reveal" style={{ marginTop: '1.5rem' }}>
@@ -287,9 +287,9 @@ export default function Home() {
                 {!last && <div style={{ position: 'absolute', left: 19, top: 40, bottom: 0, width: 1, background: border }} />}
                 <div style={{ flexShrink: 0, width: 40, height: 40, background: blue, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem', color: '#fff', position: 'relative', zIndex: 1, boxShadow: '0 4px 14px rgba(0,71,171,.3)' }}>{icon}</div>
                 <div>
-                  <div style={{ fontSize: '.58rem', letterSpacing: '.15em', textTransform: 'uppercase' as const, color: blue, fontWeight: 600, marginBottom: '.25rem' }}>{time}</div>
-                  <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '1.25rem', color: textColor, fontWeight: 600 }}>{name}</div>
-                  <div style={{ fontSize: '.76rem', color: muted, marginTop: '.2rem', lineHeight: 1.6 }}>{desc}</div>
+                  <div style={{ fontSize: '.58rem', letterSpacing: '.15em', textTransform: 'uppercase' as const, color: gold, fontWeight: 600, marginBottom: '.25rem' }}>{time}</div>
+                  <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '1.25rem', color: '#fff', fontWeight: 600 }}>{name}</div>
+                  <div style={{ fontSize: '.76rem', color: 'rgba(255,255,255,.7)', marginTop: '.2rem', lineHeight: 1.6 }}>{desc}</div>
                 </div>
               </div>
             ))}
@@ -298,7 +298,7 @@ export default function Home() {
       </section>
 
       {/* RSVP */}
-      <section id="rsvp" style={{ background: blueLight, padding: '4rem 1.5rem' }}>
+      <section id="rsvp" style={{ background: '#fff', padding: '4rem 1.5rem' }}>
         <div style={{ maxWidth: 560, margin: '0 auto' }}>
           <div className="reveal">{sectionTag('Confirmation')}{sectionTitle('Votre présence')}{divider}</div>
           <div className="reveal" style={{ background: '#fff', borderRadius: 20, padding: '2rem 1.4rem', boxShadow: '0 4px 40px rgba(0,71,171,.1)', border: `1px solid ${border}`, marginTop: '1.5rem' }}>
@@ -380,17 +380,17 @@ export default function Home() {
       </section>
 
       {/* LOCALISATION */}
-      <section id="localisation" style={{ padding: '4rem 1.5rem', background: '#fff' }}>
+      <section id="localisation" style={{ padding: '4rem 1.5rem', background: '#003380' }}>
         <div style={{ maxWidth: 560, margin: '0 auto' }}>
           <div className="reveal">{sectionTag('Itinéraire')}{sectionTitle('Localisation')}{divider}
-            <p style={{ fontSize: '.8rem', color: muted }}>Centre-ville de Bandjoun → Peter Metam</p>
+            <p style={{ fontSize: '.8rem', color: 'rgba(255,255,255,.75)' }}>Centre-ville de Bandjoun → Peter Metam</p>
           </div>
           <div className="reveal" style={{ borderRadius: 16, overflow: 'hidden', boxShadow: '0 4px 24px rgba(0,71,171,.1)', height: 230, margin: '1.5rem 0', border: `1px solid ${border}` }}>
             <iframe src="https://www.google.com/maps/embed?pb=!1m24!1m8!1m3!1d7963.2!2d10.412!3d5.377!3m2!1i1024!2i768!4f13.1!4m13!3e2!4m5!1s0x105f3ba7c96c75a5%3A0xb3f3a2e0c8012345!2sBandjoun%20Centre%2C%20Cameroun!3m2!1d5.3756!2d10.4075!4m5!1s0x105f3ba7c96c75a5%3A0xb3f3a2e0c8023456!2sPeter%20Metam%2C%20Bandjoun!3m2!1d5.3800!2d10.4165!5e0!3m2!1sfr!2scm!4v1"
               width="100%" height="100%" style={{ border: 'none' }} allowFullScreen loading="lazy" />
           </div>
           <div className="reveal" style={{ textAlign: 'center' as const }}>
-            <p style={{ fontSize: '.78rem', color: muted, lineHeight: 1.8, marginBottom: '1rem' }}>🔵 Départ : Centre-ville de Bandjoun<br />🔴 Arrivée : Peter Metam</p>
+            <p style={{ fontSize: '.78rem', color: 'rgba(255,255,255,.75)', lineHeight: 1.8, marginBottom: '1rem' }}>🔵 Départ : Centre-ville de Bandjoun<br />🔴 Arrivée : Peter Metam</p>
             <a href="https://maps.google.com/?saddr=Bandjoun+Centre+Cameroun&daddr=Peter+Metam+Bandjoun+Cameroun" target="_blank" rel="noopener noreferrer"
               style={{ display: 'inline-flex', alignItems: 'center', gap: '.5rem', background: blue, color: '#fff', padding: '.8rem 1.6rem', borderRadius: 50, textDecoration: 'none', fontSize: '.68rem', letterSpacing: '.1em', textTransform: 'uppercase' as const, fontWeight: 600, boxShadow: '0 4px 14px rgba(0,71,171,.3)' }}>
               📍 Lancer la navigation
@@ -400,10 +400,10 @@ export default function Home() {
       </section>
 
       {/* MOTS DOUX */}
-      <section id="mots" style={{ background: blueLight, padding: '4rem 1.5rem' }}>
+      <section id="mots" style={{ background: '#fff', padding: '4rem 1.5rem' }}>
         <div style={{ maxWidth: 560, margin: '0 auto' }}>
           <div className="reveal">{sectionTag("Livre d'or")}{sectionTitle('Mots Doux')}{divider}
-            <p style={{ fontSize: '.8rem', color: muted, marginBottom: '1.5rem' }}>Laissez un message aux mariés ✉️</p>
+            <p style={{ fontSize: '.8rem', color: 'rgba(255,255,255,.75)', marginBottom: '1.5rem' }}>Laissez un message aux mariés ✉️</p>
           </div>
           <div className="reveal">
             <textarea value={msgText} onChange={e => setMsgText(e.target.value)} placeholder="Votre message pour les mariés…"
@@ -418,7 +418,7 @@ export default function Home() {
               {msgLoading ? 'Envoi…' : '✉️  Laisser un message'}
             </button>
           </div>
-          <div style={{ textAlign: 'center' as const, margin: '1.5rem 0 1rem', fontSize: '.62rem', letterSpacing: '.18em', textTransform: 'uppercase' as const, color: muted }}>
+          <div style={{ textAlign: 'center' as const, margin: '1.5rem 0 1rem', fontSize: '.62rem', letterSpacing: '.18em', textTransform: 'uppercase' as const, color: 'rgba(255,255,255,.6)' }}>
             {messages.length} message{messages.length !== 1 ? 's' : ''}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '.8rem' }}>
