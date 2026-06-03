@@ -5,7 +5,7 @@ import Image from 'next/image'
 const GROOM_GROUPS = [
   { name: "Amis",                                 bg: "#4E342E", fg: "#fff" },
   { name: "Amis et connaissances",                bg: "#1B5E20", fg: "#fff" },
-  { name: "Ancien d'église Ndogbong",             bg: "#37474F", fg: "#fff" },
+  { name: "Anciens et Conseillers",               bg: "#37474F", fg: "#fff" },
   { name: "Famille de Nyalla",                    bg: "#7B1A2E", fg: "#fff" },
   { name: "Invités de la mère",                   bg: "#556B2F", fg: "#fff" },
   { name: "Invités du père",                      bg: "#B8860B", fg: "#fff" },
