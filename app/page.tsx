@@ -3,37 +3,37 @@ import { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
 
 const GROOM_GROUPS = [
-  { name: "Troupe Théâtrale",                    bg: "#7C3D12", fg: "#fff" },
-  { name: "Moniteurs",                            bg: "#1e3a5c", fg: "#fff" },
-  { name: "Tchakaliseurs",                        bg: "#5B2D8E", fg: "#fff" },
+  { name: "Amis (Inès)",                          bg: "#4E342E", fg: "#fff" },
+  { name: "Amis (Stephanie)",                     bg: "#880E4F", fg: "#fff" },
+  { name: "Amis (Telly)",                         bg: "#00695C", fg: "#fff" },
   { name: "Amis et connaissances",                bg: "#1B5E20", fg: "#fff" },
   { name: "Ancien d'église Ndogbong",             bg: "#37474F", fg: "#fff" },
   { name: "Famille de Nyalla",                    bg: "#7B1A2E", fg: "#fff" },
-  { name: "Amis (Stephanie)",                     bg: "#880E4F", fg: "#fff" },
-  { name: "Amis (Inès)",                          bg: "#4E342E", fg: "#fff" },
-  { name: "Amis (Telly)",                         bg: "#00695C", fg: "#fff" },
-  { name: "Invités du père (Famille et amis)",    bg: "#B8860B", fg: "#fff" },
   { name: "Invités de la mère (Famille et amis)", bg: "#556B2F", fg: "#fff" },
+  { name: "Invités du père (Famille et amis)",    bg: "#B8860B", fg: "#fff" },
+  { name: "Moniteurs",                            bg: "#1e3a5c", fg: "#fff" },
+  { name: "Tchakaliseurs",                        bg: "#5B2D8E", fg: "#fff" },
   { name: "Témoins",                              bg: "#1a1a2e", fg: "#fff" },
+  { name: "Troupe Théâtrale",                     bg: "#7C3D12", fg: "#fff" },
 ]
 
 const BRIDE_GROUPS = [
-  { name: "APJ",                                       bg: "#F48FB1", fg: "#3a1a2a" },
   { name: "ACQMT",                                     bg: "#81D4FA", fg: "#0d2a3a" },
-  { name: "IBI",                                       bg: "#FFCCBC", fg: "#3a1a0a" },
   { name: "AGR",                                       bg: "#A5D6A7", fg: "#0a2a10" },
+  { name: "Amis (Claude)",                             bg: "#B2DFDB", fg: "#0a2a20" },
+  { name: "Amis (Darelle)",                            bg: "#B3E5FC", fg: "#0a1a2a" },
+  { name: "Amis (William)",                            bg: "#FFCCAA", fg: "#2a1000" },
+  { name: "Amis et connaissances",                     bg: "#FFF59D", fg: "#2a2a00" },
+  { name: "APJ",                                       bg: "#F48FB1", fg: "#3a1a2a" },
   { name: "Famille maternelle",                        bg: "#CE93D8", fg: "#2a0a3a" },
   { name: "Famille paternelle",                        bg: "#F8BBD0", fg: "#3a0a20" },
-  { name: "Amis et connaissances",                     bg: "#FFF59D", fg: "#2a2a00" },
   { name: "Frères et Sœurs famille maternelle",        bg: "#CFD8DC", fg: "#1a2a2a" },
   { name: "Frères et Sœurs famille paternelle",        bg: "#F5F0E8", fg: "#2a2010" },
-  { name: "Amis (Darelle)",                            bg: "#B3E5FC", fg: "#0a1a2a" },
-  { name: "Amis (Claude)",                             bg: "#B2DFDB", fg: "#0a2a20" },
-  { name: "Amis (William)",                            bg: "#FFCCAA", fg: "#2a1000" },
-  { name: "Témoins",                                   bg: "#F5E6C8", fg: "#2a1a00" },
-  { name: "Invités du père",                           bg: "#FFAB91", fg: "#2a0a00" },
-  { name: "Invités de la mère",                        bg: "#E1BEE7", fg: "#1a0a2a" },
+  { name: "IBI",                                       bg: "#FFCCBC", fg: "#3a1a0a" },
   { name: "Invités de la famille",                     bg: "#B2EBF2", fg: "#002a2a" },
+  { name: "Invités de la mère",                        bg: "#E1BEE7", fg: "#1a0a2a" },
+  { name: "Invités du père",                           bg: "#FFAB91", fg: "#2a0a00" },
+  { name: "Témoins",                                   bg: "#F5E6C8", fg: "#2a1a00" },
 ]
 
 type Msg = { id: string; author: string; message: string; created_at: string }
@@ -214,6 +214,11 @@ export default function Home() {
           <Image src="/hero.jpg" alt="Invitation Mariage" fill style={{ objectFit: 'cover', objectPosition: 'center' }} priority />
         </div>
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(175deg,rgba(0,51,128,.6) 0%,rgba(0,71,171,.2) 40%,rgba(0,30,80,.92) 100%)' }} />
+        {/* Anneaux en haut */}
+        <div className="afu" style={{ position: 'absolute', top: '5rem', left: '50%', transform: 'translateX(-50%)', zIndex: 3, textAlign: 'center' as const }}>
+          <img src="/anneaux-mariage.avif" alt="Anneaux" style={{ width: 100, height: 'auto', filter: 'drop-shadow(0 4px 16px rgba(0,0,0,.5))' }} />
+          <div style={{ marginTop: '.6rem', fontSize: '.65rem', letterSpacing: '.25em', textTransform: 'uppercase' as const, color: 'rgba(255,255,255,.85)', fontWeight: 600 }}>Célébration de Mariage</div>
+        </div>
         <div style={{ position: 'relative', zIndex: 2, flex: 1, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', justifyContent: 'flex-end', padding: '2rem 1.5rem 4rem', textAlign: 'center' as const, color: '#fff' }}>
           <div className="afu" style={{ display: 'inline-flex', alignItems: 'center', gap: '.6rem', fontSize: '.6rem', letterSpacing: '.25em', textTransform: 'uppercase' as const, color: 'rgba(255,255,255,.85)', marginBottom: '1.5rem', padding: '.4rem 1rem', border: '1px solid rgba(255,255,255,.25)', borderRadius: 50, background: 'rgba(255,255,255,.08)' }}>
             💍 Célébration de Mariage
@@ -240,9 +245,9 @@ export default function Home() {
           {sectionTitle(<>Cher(e) <em style={{ fontStyle: 'italic' }}>Invité(e)</em></>, true)}
           {dividerDark}
           <div style={{ textAlign: 'center', margin: '1.5rem 0' }}>
-            <svg width="60" height="28" viewBox="0 0 60 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="20" cy="14" r="12" stroke="#C9A84C" strokeWidth="2.5" fill="none"/>
-              <circle cx="40" cy="14" r="12" stroke="#0047AB" strokeWidth="2.5" fill="none"/>
+            <svg width="90" height="42" viewBox="0 0 90 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="30" cy="21" r="18" stroke="#C9A84C" strokeWidth="3.5" fill="none"/>
+              <circle cx="60" cy="21" r="18" stroke="#0047AB" strokeWidth="3.5" fill="none"/>
             </svg>
           </div>
           <p style={{ fontSize: '.88rem', lineHeight: 1.9, color: '#5a6a7a', fontWeight: 300 }}>
@@ -294,7 +299,7 @@ export default function Home() {
             {[
               { icon: '🏛️', time: '9h00',  name: 'Cérémonie Civile',     desc: "Échange des vœux officiels.", last: false },
               { icon: '⛪',  time: '10h30', name: 'Cérémonie Religieuse', desc: "Bénédiction de l'union devant Dieu et nos proches.", last: false },
-              { icon: '🎉',  time: '12h30', name: 'La Dote',              desc: 'Célébration culturelle à Pete Metam, Bandjoun.', last: true },
+              { icon: '🎉',  time: '12h30', name: 'La Dot',               desc: 'Célébration Traditionnelle à Pete Metam, Bandjoun.', last: true },
             ].map(({ icon, time, name, desc, last }) => (
               <div key={name} style={{ display: 'flex', gap: '1.1rem', paddingBottom: last ? 0 : '2rem', position: 'relative' }}>
                 {!last && <div style={{ position: 'absolute', left: 19, top: 40, bottom: 0, width: 1, background: border }} />}
@@ -393,8 +398,8 @@ export default function Home() {
             {rsvpState === 'declined' && (
               <div style={{ textAlign: 'center' as const, padding: '1.5rem 0' }}>
                 <div style={{ fontSize: '2rem', marginBottom: '.8rem' }}>💙</div>
-                <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '1.3rem', color: textColor }}>Merci pour votre réponse</div>
-                <div style={{ fontSize: '.78rem', color: muted, marginTop: '.4rem' }}>Nous espérons vous voir bientôt 💙</div>
+                <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '1.15rem', color: textColor, lineHeight: 1.6, marginBottom: '.5rem' }}>Désolé(e) que vous ne puissez pas participer à notre cérémonie.</div>
+                <div style={{ fontSize: '.78rem', color: muted, lineHeight: 1.6 }}>Toutefois, merci d&apos;avoir répondu. 💙</div>
               </div>
             )}
           </div>
