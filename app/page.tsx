@@ -215,7 +215,7 @@ export default function Home() {
         </div>
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(175deg,rgba(0,51,128,.6) 0%,rgba(0,71,171,.2) 40%,rgba(0,30,80,.92) 100%)' }} />
         <div style={{ position: 'relative', zIndex: 2, flex: 1, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', justifyContent: 'flex-end', padding: '2rem 1.5rem 4rem', textAlign: 'center' as const, color: '#fff' }}>
-          <div className="afu" style={{ display: 'inline-flex', alignItems: 'center', gap: '.6rem', fontSize: '.6rem', letterSpacing: '.25em', textTransform: 'uppercase' as const, color: 'rgba(255,255,255,.75)', marginBottom: '1.5rem', padding: '.4rem 1rem', border: '1px solid rgba(255,255,255,.25)', borderRadius: 50, background: 'rgba(255,255,255,.08)' }}>
+          <div className="afu" style={{ display: 'inline-flex', alignItems: 'center', gap: '.6rem', fontSize: '.6rem', letterSpacing: '.25em', textTransform: 'uppercase' as const, color: 'rgba(255,255,255,.85)', marginBottom: '1.5rem', padding: '.4rem 1rem', border: '1px solid rgba(255,255,255,.25)', borderRadius: 50, background: 'rgba(255,255,255,.08)' }}>
             💍 Célébration de Mariage
           </div>
           <h1 className="afu1" style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(3rem,13vw,6rem)', fontWeight: 600, lineHeight: .92 }}>
@@ -422,10 +422,10 @@ export default function Home() {
       </section>
 
       {/* MOTS DOUX */}
-      <section id="mots" style={{ background: '#fff', padding: '4rem 1.5rem', '--section-color': '#003380', '--section-muted': '#5a6a7a' } as React.CSSProperties}>
+      <section id="mots" style={{ background: '#003380', padding: '4rem 1.5rem' }}>
         <div style={{ maxWidth: 560, margin: '0 auto' }}>
           <div className="reveal">{sectionTag("Livre d'or")}{sectionTitle('Mots Doux')}{divider}
-            <p style={{ fontSize: '.8rem', color: 'rgba(255,255,255,.75)', marginBottom: '1.5rem' }}>Laissez un message aux mariés ✉️</p>
+            <p style={{ fontSize: '.8rem', color: 'rgba(255,255,255,.85)', marginBottom: '1.5rem' }}>Laissez un message aux mariés ✉️</p>
           </div>
           <div className="reveal">
             <textarea value={msgText} onChange={e => setMsgText(e.target.value)} placeholder="Votre message pour les mariés…"
@@ -485,3 +485,4 @@ export default function Home() {
     </>
   )
 }
+
