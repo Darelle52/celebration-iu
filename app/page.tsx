@@ -209,18 +209,13 @@ export default function Home() {
       </nav>
 
       {/* HERO */}
-      <section style={{ minHeight: '100svh', display: 'flex', flexDirection: 'column' as const, position: 'relative', overflow: 'hidden' }}>
+       <section style={{ minHeight: '100svh', display: 'flex', flexDirection: 'column' as const, position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0 }}>
           <Image src="/hero.jpg" alt="Invitation Mariage" fill style={{ objectFit: 'cover', objectPosition: 'center' }} priority />
         </div>
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(175deg,rgba(0,51,128,.6) 0%,rgba(0,71,171,.2) 40%,rgba(0,30,80,.92) 100%)' }} />
-        {/* Anneaux en haut */}
-        <div className="afu" style={{ position: 'absolute', top: '5rem', left: '50%', transform: 'translateX(-50%)', zIndex: 3, textAlign: 'center' as const }}>
-          <img src="/anneaux-mariage.avif" alt="Anneaux" style={{ width: 100, height: 'auto', filter: 'drop-shadow(0 4px 16px rgba(0,0,0,.5))' }} />
-          <div style={{ marginTop: '.6rem', fontSize: '.65rem', letterSpacing: '.25em', textTransform: 'uppercase' as const, color: 'rgba(255,255,255,.85)', fontWeight: 600 }}>Célébration de Mariage</div>
-        </div>
         <div style={{ position: 'relative', zIndex: 2, flex: 1, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', justifyContent: 'flex-end', padding: '2rem 1.5rem 4rem', textAlign: 'center' as const, color: '#fff' }}>
-          <div className="afu" style={{ display: 'inline-flex', alignItems: 'center', gap: '.6rem', fontSize: '.6rem', letterSpacing: '.25em', textTransform: 'uppercase' as const, color: 'rgba(255,255,255,.85)', marginBottom: '1.5rem', padding: '.4rem 1rem', border: '1px solid rgba(255,255,255,.25)', borderRadius: 50, background: 'rgba(255,255,255,.08)' }}>
+          <div className="afu" style={{ display: 'inline-flex', alignItems: 'center', gap: '.6rem', fontSize: '.6rem', letterSpacing: '.25em', textTransform: 'uppercase' as const, color: 'rgba(255,255,255,.75)', marginBottom: '1.5rem', padding: '.4rem 1rem', border: '1px solid rgba(255,255,255,.25)', borderRadius: 50, background: 'rgba(255,255,255,.08)' }}>
             💍 Célébration de Mariage
           </div>
           <h1 className="afu1" style={{ fontFamily: "'Playfair Display',serif", fontSize: 'clamp(3rem,13vw,6rem)', fontWeight: 600, lineHeight: .92 }}>
