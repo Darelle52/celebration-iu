@@ -39,15 +39,6 @@ export async function sendNotifications(p: {
     '</div>' +
     '</div>'
 
-  try {
-    await resend.emails.send({
-      from: 'Mariage Ingrid et Ulrich <onboarding@resend.dev>',
-      to: 'simodarel5@gmail.com',
-      subject: subject,
-      html: html
-    })
-    console.log('Email sent OK')
-  } catch (e) {
-    console.error('Email error:', e)
-  }
+  console.log('No email - using Google Sheets')
 }
+
