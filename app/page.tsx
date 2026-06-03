@@ -75,7 +75,7 @@ export default function Home() {
   const toggleMusic = () => {
     if (!audioRef.current) {
       const audio = new Audio('/music/goodness-compressed.mp3')
-      audio.currentTime = 70 // Start at 1min 10s
+      audio.currentTime = 0 // Start at 1min 10s
       audio.loop = true
       audio.volume = 0.4
       audioRef.current = audio
