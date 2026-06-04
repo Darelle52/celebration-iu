@@ -193,7 +193,7 @@ export default function Home() {
       {/* HERO */}
        <section style={{ minHeight: '100svh', display: 'flex', flexDirection: 'column' as const, position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0 }}>
-          <Image src="/hero.jpg" alt="Invitation Mariage" fill style={{ objectFit: 'cover', objectPosition: 'center' }} priority />
+          <Image src="/hero.jpg" alt="Invitation Mariage" fill style={{ objectFit: 'contain', objectPosition: 'center center' }} priority />
         </div>
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(175deg,rgba(0,51,128,.6) 0%,rgba(0,71,171,.2) 40%,rgba(0,30,80,.92) 100%)' }} />
         <div style={{ position: 'relative', zIndex: 2, flex: 1, display: 'flex', flexDirection: 'column' as const, alignItems: 'center', justifyContent: 'flex-end', padding: '2rem 1.5rem 4rem', textAlign: 'center' as const, color: '#fff' }}>
