@@ -3,30 +3,19 @@ import { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
 
 const GROOM_GROUPS = [
-  { name: "Amis",                                 bg: "#4E342E", fg: "#fff" },
-  { name: "Amis et connaissances",                bg: "#1B5E20", fg: "#fff" },
-  { name: "Anciens et Conseillers",               bg: "#37474F", fg: "#fff" },
-  { name: "Famille de Nyalla",                    bg: "#7B1A2E", fg: "#fff" },
-  { name: "Invités de la mère",                   bg: "#556B2F", fg: "#fff" },
-  { name: "Invités du père",                      bg: "#B8860B", fg: "#fff" },
-  { name: "Moniteurs",                            bg: "#1e3a5c", fg: "#fff" },
-  { name: "Tchakaliseurs",                        bg: "#5B2D8E", fg: "#fff" },
-  { name: "Témoins",                              bg: "#F5E6C8", fg: "#fff" },
-  { name: "Troupe Théâtrale",                     bg: "#7C3D12", fg: "#fff" },
+  { name: "Amis et connaissances", bg: "#2E7D32", fg: "#fff" },
+  { name: "Famille",               bg: "#C62828", fg: "#fff" },
+  { name: "Invités des parents",   bg: "#F9A825", fg: "#fff" },
+  { name: "Moniteurs",             bg: "#1565C0", fg: "#fff" },
+  { name: "Troupe Théâtrale",      bg: "#E65100", fg: "#fff" },
 ]
 
 const BRIDE_GROUPS = [
-  { name: "ACQMT",                                     bg: "#81D4FA", fg: "#0d2a3a" },
-  { name: "AGR",                                       bg: "#A5D6A7", fg: "#0a2a10" },
-  { name: "Amis",                                      bg: "#B3E5FC", fg: "#0a1a2a" },
-  { name: "Amis et connaissances",                     bg: "#FFF59D", fg: "#2a2a00" },
-  { name: "APJ",                                       bg: "#F48FB1", fg: "#3a1a2a" },
-  { name: "Famille maternelle",                        bg: "#CFD8DC", fg: "#1a2a2a" },
-  { name: "Famille paternelle",                        bg: "#F8BBD0", fg: "#3a0a20" },
-  { name: "IBI",                                       bg: "#F48FB1", fg: "#3a1a2a" },
-  { name: "Invités de la mère",                        bg: "#E1BEE7", fg: "#1a0a2a" },
-  { name: "Invités du père",                           bg: "#FFAB91", fg: "#2a0a00" },
-  { name: "Témoins",                                   bg: "#F5E6C8", fg: "#2a1a00" },
+  { name: "Amis et connaissances", bg: "#AD1457", fg: "#fff" },
+  { name: "Collègues",             bg: "#6A1B9A", fg: "#fff" },
+  { name: "Familles",              bg: "#4E342E", fg: "#fff" },
+  { name: "Invité des parents",    bg: "#00838F", fg: "#fff" },
+  { name: "Reunion",               bg: "#BF360C", fg: "#fff" },
 ]
 
 type Msg = { id: string; author: string; message: string; created_at: string }
