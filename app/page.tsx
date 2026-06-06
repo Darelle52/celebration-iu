@@ -215,6 +215,56 @@ export default function Home() {
         </div>
       </section>
 
+
+      {/* HISTOIRE */}
+      <section style={{ padding: '4rem 1.5rem', background: '#003380', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 50%, rgba(255,255,255,.04), transparent 70%)' }} />
+        <div style={{ maxWidth: 560, margin: '0 auto', position: 'relative', zIndex: 1 }} className="reveal">
+          <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+            <div style={{ display: 'inline-block', width: 40, height: 1, background: 'rgba(201,168,76,.6)', verticalAlign: 'middle', marginRight: '1rem' }} />
+            <span style={{ fontFamily: "'Playfair Display',serif", fontSize: '.75rem', letterSpacing: '.25em', textTransform: 'uppercase', color: '#C9A84C' }}>Notre Histoire</span>
+            <div style={{ display: 'inline-block', width: 40, height: 1, background: 'rgba(201,168,76,.6)', verticalAlign: 'middle', marginLeft: '1rem' }} />
+          </div>
+          <div style={{ fontFamily: "'Playfair Display',serif", color: '#fff', lineHeight: 2, textAlign: 'center' }}>
+            <p style={{ fontSize: '1rem', fontStyle: 'italic', color: 'rgba(255,255,255,.7)', marginBottom: '1.5rem', letterSpacing: '.05em' }}>
+              Un ami commun... Un simple message...<br />
+              Une rencontre que rien ne laissait présager.
+            </p>
+            <p style={{ fontSize: '1.1rem', fontWeight: 600, color: '#C9A84C', marginBottom: '1.5rem', letterSpacing: '.05em' }}>
+              Ce jour-là, le destin avait décidé de jouer.
+            </p>
+            <p style={{ fontSize: '.95rem', color: 'rgba(255,255,255,.85)', marginBottom: '1.5rem', lineHeight: 2 }}>
+              De cette rencontre naquit une amitié,<br />
+              De cette amitié émergea une complicité troublante,<br />
+              De cette complicité... quelque chose que ni l'un ni l'autre<br />
+              n'osait encore appeler par son nom.
+            </p>
+            <p style={{ fontSize: '1.6rem', fontWeight: 600, color: '#fff', marginBottom: '1.5rem', letterSpacing: '.1em' }}>
+              L'amour.
+            </p>
+            <p style={{ fontSize: '.95rem', color: 'rgba(255,255,255,.85)', marginBottom: '1.5rem', lineHeight: 2 }}>
+              Ils auraient pu l'ignorer.<br />
+              <span style={{ color: '#C9A84C', fontStyle: 'italic' }}>Ils ont choisi de le vivre.</span>
+            </p>
+            <p style={{ fontSize: '.9rem', color: 'rgba(255,255,255,.75)', marginBottom: '1.5rem', lineHeight: 2 }}>
+              Entre les joies qui unissent,<br />
+              les peines qui forgent<br />
+              et les difficultés qui révèlent,<br />
+              grandir ensemble est devenu leur plus belle nécessité.
+            </p>
+            <div style={{ width: 60, height: 1, background: 'rgba(201,168,76,.4)', margin: '1.5rem auto' }} />
+            <p style={{ fontSize: '.95rem', color: 'rgba(255,255,255,.85)', marginBottom: '1rem', lineHeight: 2 }}>
+              Alors aujourd'hui, après tout ce chemin parcouru côte à côte,<br />
+              <span style={{ fontFamily: "'Playfair Display',serif", fontSize: '1.1rem', color: '#fff', fontWeight: 600 }}>Ingrid & Ulrich</span> ont décidé de rendre éternel<br />
+              ce qui a commencé par un simple message.
+            </p>
+            <p style={{ fontSize: '1rem', fontStyle: 'italic', color: '#C9A84C', marginTop: '1rem' }}>
+              Et ils veulent que vous en soyez témoins.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* INVITATION */}
       <section id="invitation" style={{ padding: '4rem 1.5rem', background: '#fff' }}>
         <div style={{ maxWidth: 560, margin: '0 auto' }} className="reveal">
