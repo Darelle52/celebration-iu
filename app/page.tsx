@@ -440,12 +440,12 @@ export default function Home() {
             <p style={{ fontSize: '.8rem', color: '#5a6a7a' }}>Centre-ville de Bandjoun → Pete Metam</p>
           </div>
           <div className="reveal" style={{ borderRadius: 16, overflow: 'hidden', boxShadow: '0 4px 24px rgba(0,71,171,.1)', height: 230, margin: '1.5rem 0', border: `1px solid ${border}` }}>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m24!1m8!1m3!1d7963.2!2d10.412!3d5.377!3m2!1i1024!2i768!4f13.1!4m13!3e2!4m5!1s0x105f3ba7c96c75a5%3A0xb3f3a2e0c8012345!2sBandjoun%20Centre%2C%20Cameroun!3m2!1d5.3756!2d10.4075!4m5!1s0x105f3ba7c96c75a5%3A0xb3f3a2e0c8023456!2sPeter%20Metam%2C%20Bandjoun!3m2!1d5.3800!2d10.4165!5e0!3m2!1sfr!2scm!4v1"
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d500!2d10.4150!3d5.3848!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2scm!4v1"
               width="100%" height="100%" style={{ border: 'none' }} allowFullScreen loading="lazy" />
           </div>
           <div className="reveal" style={{ textAlign: 'center' as const }}>
             <p style={{ fontSize: '.78rem', color: '#5a6a7a', lineHeight: 1.8, marginBottom: '1rem' }}>🔵 Départ : Centre-ville de Bandjoun<br />🔴 Arrivée : Pete Metam</p>
-            <a href="https://maps.google.com/?saddr=Bandjoun+Centre+Cameroun&daddr=Peter+Metam+Bandjoun+Cameroun" target="_blank" rel="noopener noreferrer"
+            <a href="https://maps.google.com/?daddr=5.3848,10.4150" target="_blank" rel="noopener noreferrer"
               style={{ display: 'inline-flex', alignItems: 'center', gap: '.5rem', background: blue, color: '#fff', padding: '.8rem 1.6rem', borderRadius: 50, textDecoration: 'none', fontSize: '.68rem', letterSpacing: '.1em', textTransform: 'uppercase' as const, fontWeight: 600, boxShadow: '0 4px 14px rgba(0,71,171,.3)' }}>
               📍 Lancer la navigation
             </a>
@@ -517,4 +517,6 @@ export default function Home() {
     </>
   )
 }
+
+
 
