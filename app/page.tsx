@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 const GROOM_GROUPS = [
   { name: "Amis et connaissances", bg: "#2E7D32", fg: "#fff" },
-  { name: "Famille",               bg: "#C62828", fg: "#fff" },
+  { name: "Familles",               bg: "#C62828", fg: "#fff" },
   { name: "Invités des parents",   bg: "#F9A825", fg: "#fff" },
   { name: "Moniteurs",             bg: "#1565C0", fg: "#fff" },
   { name: "Troupe Théâtrale",      bg: "#E65100", fg: "#fff" },
@@ -14,8 +14,8 @@ const BRIDE_GROUPS = [
   { name: "Amis et connaissances", bg: "#AD1457", fg: "#fff" },
   { name: "Collègues",             bg: "#6A1B9A", fg: "#fff" },
   { name: "Familles",              bg: "#4E342E", fg: "#fff" },
-  { name: "Invité des parents",    bg: "#00838F", fg: "#fff" },
-  { name: "Reunion",               bg: "#BF360C", fg: "#fff" },
+  { name: "Invités des parents",    bg: "#00838F", fg: "#fff" },
+  { name: "Réunion",               bg: "#BF360C", fg: "#fff" },
 ]
 
 type Msg = { id: string; author: string; message: string; created_at: string }
@@ -286,7 +286,7 @@ export default function Home() {
       {/* DETAILS */}
       <section style={{ padding: '2rem 1.5rem 3.5rem', background: '#0047AB' }}>
         <div style={{ maxWidth: 560, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '.9rem' }} className="reveal">
-          {[{ icon: '📅', label: 'Date', val: 'Vendredi\n31 Juillet 2026' }, { icon: '⏰', label: 'Heure', val: 'À partir\nde 9h00' }].map(({ icon, label, val }) => (
+          {[{ icon: '📅', label: 'Date', val: 'Vendredi\n31 Juillet 2026' }, { icon: '⏰', label: 'Heure', val: 'À partir\nde 10h00' }].map(({ icon, label, val }) => (
             <div key={label} style={{ background: '#fff', borderRadius: 16, padding: '1.4rem 1rem', textAlign: 'center' as const, border: `1px solid ${border}`, boxShadow: '0 2px 16px rgba(0,71,171,.06)' }}>
               <div style={{ width: 42, height: 42, background: blueLight, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto .75rem', fontSize: '1.1rem' }}>{icon}</div>
               <div style={{ fontSize: '.55rem', letterSpacing: '.2em', textTransform: 'uppercase' as const, color: blue, fontWeight: 600, marginBottom: '.4rem' }}>{label}</div>
