@@ -286,7 +286,7 @@ export default function Home() {
       {/* DETAILS */}
       <section style={{ padding: '2rem 1.5rem 3.5rem', background: '#0047AB' }}>
         <div style={{ maxWidth: 560, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '.9rem' }} className="reveal">
-          {[{ icon: '📅', label: 'Date', val: 'Vendredi\n31 Juillet 2026' }, { icon: '⏰', label: 'Heure', val: 'À partir\nde 10h00' }].map(({ icon, label, val }) => (
+          {[{ icon: '📅', label: 'Date', val: 'Vendredi\n31 Juillet 2026' }, { icon: '⏰', label: 'Heure', val: 'À partir\nde 9h00' }].map(({ icon, label, val }) => (
             <div key={label} style={{ background: '#fff', borderRadius: 16, padding: '1.4rem 1rem', textAlign: 'center' as const, border: `1px solid ${border}`, boxShadow: '0 2px 16px rgba(0,71,171,.06)' }}>
               <div style={{ width: 42, height: 42, background: blueLight, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto .75rem', fontSize: '1.1rem' }}>{icon}</div>
               <div style={{ fontSize: '.55rem', letterSpacing: '.2em', textTransform: 'uppercase' as const, color: blue, fontWeight: 600, marginBottom: '.4rem' }}>{label}</div>
@@ -324,9 +324,9 @@ export default function Home() {
           <div className="reveal">{sectionTagDark('Déroulement')}{sectionTitle('Programme', true)}{dividerDark}</div>
           <div className="reveal" style={{ marginTop: '1.5rem' }}>
             {[
-              { icon: '🎉',  time: '10h00', name: 'La Dot',               desc: 'Célébration Traditionnelle.', last: false },
-              { icon: '🏛️', time: '13h00',  name: 'Cérémonie Civile',     desc: "Échange des vœux officiels.", last: false },
-              { icon: '⛪',  time: '14h00', name: 'Cérémonie Religieuse', desc: "Bénédiction de l'union devant Dieu et nos proches.", last: true },
+              { icon: '🏛️', time: '9h00',  name: 'Cérémonie Civile',     desc: "Échange des vœux officiels.", last: false },
+              { icon: '⛪',  time: '10h30', name: 'Cérémonie Religieuse', desc: "Bénédiction de l'union devant Dieu et nos proches.", last: false },
+              { icon: '🎉',  time: '12h30', name: 'La Dot',               desc: 'Célébration Traditionnelle.', last: true },
             ].map(({ icon, time, name, desc, last }) => (
               <div key={name} style={{ display: 'flex', gap: '1.1rem', paddingBottom: last ? 0 : '2rem', position: 'relative' }}>
                 {!last && <div style={{ position: 'absolute', left: 19, top: 40, bottom: 0, width: 1, background: border }} />}
@@ -437,14 +437,14 @@ export default function Home() {
       <section id="localisation" style={{ padding: '4rem 1.5rem', background: '#fff' }}>
         <div style={{ maxWidth: 560, margin: '0 auto' }}>
           <div className="reveal">{sectionTagDark('Itinéraire')}{sectionTitle('Localisation', true)}{dividerDark}
-            <p style={{ fontSize: '.8rem', color: '#5a6a7a' }}>Centre-ville de Bandjoun → Pete Metam</p>
+            <p style={{ fontSize: '.8rem', color: '#5a6a7a' }}>Pete Metam, Bandjoun</p>
           </div>
           <div className="reveal" style={{ borderRadius: 16, overflow: 'hidden', boxShadow: '0 4px 24px rgba(0,71,171,.1)', height: 230, margin: '1.5rem 0', border: `1px solid ${border}` }}>
             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d500!2d10.4150!3d5.3848!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2scm!4v1"
               width="100%" height="100%" style={{ border: 'none' }} allowFullScreen loading="lazy" />
           </div>
           <div className="reveal" style={{ textAlign: 'center' as const }}>
-            <p style={{ fontSize: '.78rem', color: '#5a6a7a', lineHeight: 1.8, marginBottom: '1rem' }}>🔵 Départ : Centre-ville de Bandjoun<br />🔴 Arrivée : Pete Metam</p>
+            <p style={{ fontSize: '.78rem', color: '#5a6a7a', lineHeight: 1.8, marginBottom: '1rem' }}>📍 Depuis votre position actuelle<br />🔴 Arrivée : Pete Metam, Bandjoun</p>
             <a href="https://maps.google.com/?daddr=5.3848,10.4150" target="_blank" rel="noopener noreferrer"
               style={{ display: 'inline-flex', alignItems: 'center', gap: '.5rem', background: blue, color: '#fff', padding: '.8rem 1.6rem', borderRadius: 50, textDecoration: 'none', fontSize: '.68rem', letterSpacing: '.1em', textTransform: 'uppercase' as const, fontWeight: 600, boxShadow: '0 4px 14px rgba(0,71,171,.3)' }}>
               📍 Lancer la navigation
@@ -517,6 +517,4 @@ export default function Home() {
     </>
   )
 }
-
-
 
