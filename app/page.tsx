@@ -324,9 +324,9 @@ export default function Home() {
           <div className="reveal">{sectionTagDark('Déroulement')}{sectionTitle('Programme', true)}{dividerDark}</div>
           <div className="reveal" style={{ marginTop: '1.5rem' }}>
             {[
-              { icon: '🏛️', time: '9h00',  name: 'Cérémonie Civile',     desc: "Échange des vœux officiels.", last: false },
-              { icon: '⛪',  time: '10h30', name: 'Cérémonie Religieuse', desc: "Bénédiction de l'union devant Dieu et nos proches.", last: false },
-              { icon: '🎉',  time: '12h30', name: 'La Dot',               desc: 'Célébration Traditionnelle.', last: true },
+              { icon: '🎉',  time: '10h00', name: 'La Dote',              desc: 'Célébration Traditionnelle.', last: false },
+              { icon: '🏛️', time: '13h00', name: 'Cérémonie Civile',     desc: "Échange des vœux officiels.", last: false },
+              { icon: '⛪',  time: '14h00', name: 'Cérémonie Religieuse', desc: "Bénédiction de l'union devant Dieu et nos proches.", last: true },
             ].map(({ icon, time, name, desc, last }) => (
               <div key={name} style={{ display: 'flex', gap: '1.1rem', paddingBottom: last ? 0 : '2rem', position: 'relative' }}>
                 {!last && <div style={{ position: 'absolute', left: 19, top: 40, bottom: 0, width: 1, background: border }} />}
