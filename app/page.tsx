@@ -44,6 +44,7 @@ export default function Home() {
   const [rsvpState, setRsvpState] = useState<RsvpState>('idle')
   const [confirmedData, setConfirmedData] = useState<{name:string;group:string;side:string;bg:string;fg:string}|null>(null)
   const [rsvpLoading, setRsvpLoading] = useState(false)
+  const [cardDownloaded, setCardDownloaded] = useState(false)
   const [messages, setMessages] = useState<Msg[]>([])
   const [msgText, setMsgText] = useState('')
   const [msgName, setMsgName] = useState('')
@@ -57,7 +58,7 @@ export default function Home() {
   const toggleMusic = () => {
     if (!audioRef.current) {
       const audio = new Audio('/music/goodness-compressed.mp3')
-      audio.currentTime = 0 // Start at 1min 10s
+      audio.currentTime = 0
       audio.loop = true
       audio.volume = 0.4
       audioRef.current = audio
@@ -75,6 +76,23 @@ export default function Home() {
     if (toastRef.current) clearTimeout(toastRef.current)
     setToast({ msg, show: true })
     toastRef.current = setTimeout(() => setToast(t => ({ ...t, show: false })), 3200)
+  }
+
+  const downloadCard = (auto = false) => {
+    const card = document.getElementById('confirm-card')
+    if ((window as any).html2canvas && card) {
+      (window as any).html2canvas(card, { scale: 3, backgroundColor: null, useCORS: true }).then((canvas: any) => {
+        const a = document.createElement('a')
+        a.download = 'invitation-ingrid-ulrich.png'
+        a.href = canvas.toDataURL('image/png')
+        a.click()
+        setCardDownloaded(true)
+        if (!auto) showToast('Carte téléchargée ! 🎉')
+      })
+    } else {
+      window.print()
+      setCardDownloaded(true)
+    }
   }
 
   const fetchMsgs = async () => {
@@ -118,15 +136,19 @@ export default function Home() {
       })
       setConfirmedData({ name: rsvpName.trim(), group: selectedGroup, side: activeSide, bg: g.bg, fg: g.fg })
       setRsvpState('confirmed')
+      setCardDownloaded(false)
       showToast('Présence confirmée ! 🎉')
+      // Auto download after short delay to let card render
+      setTimeout(() => downloadCard(true), 1500)
     } catch { showToast('Erreur, réessayez') }
     finally { setRsvpLoading(false) }
   }
 
   const handleDecline = async () => {
+    if (!rsvpName.trim()) { showToast('Veuillez entrer votre nom 😊'); return }
     await fetch('/api/rsvp', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: rsvpName.trim() || 'Invité(e)', status: 'declined' })
+      body: JSON.stringify({ name: rsvpName.trim(), status: 'declined' })
     }).catch(() => {})
     setRsvpState('declined')
     showToast('Merci pour votre réponse 💙')
@@ -191,7 +213,7 @@ export default function Home() {
       </nav>
 
       {/* HERO */}
-       <section style={{ minHeight: '100svh', display: 'flex', flexDirection: 'column' as const, position: 'relative', overflow: 'hidden' }}>
+      <section style={{ minHeight: '100svh', display: 'flex', flexDirection: 'column' as const, position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0 }}>
           <Image src="/hero.jpg" alt="Invitation Mariage" fill style={{ objectFit: 'contain', objectPosition: 'center center' }} priority />
         </div>
@@ -215,14 +237,13 @@ export default function Home() {
         </div>
       </section>
 
-
       {/* HISTOIRE */}
       <section style={{ padding: '4rem 1.5rem', background: '#003380', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 50%, rgba(255,255,255,.04), transparent 70%)' }} />
         <div style={{ maxWidth: 560, margin: '0 auto', position: 'relative', zIndex: 1 }} className="reveal">
           <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
             <div style={{ display: 'inline-block', width: 40, height: 1, background: 'rgba(201,168,76,.6)', verticalAlign: 'middle', marginRight: '1rem' }} />
-            <span style={{ fontFamily: "'Playfair Display',serif", fontSize: '.75rem', letterSpacing: '.25em', textTransform: 'uppercase', color: '#C9A84C' }}>Notre Histoire</span>
+            <span style={{ fontFamily: "'Playfair Display',serif", fontSize: '.75rem', letterSpacing: '.25em', textTransform: 'uppercase' as const, color: '#C9A84C' }}>Notre Histoire</span>
             <div style={{ display: 'inline-block', width: 40, height: 1, background: 'rgba(201,168,76,.6)', verticalAlign: 'middle', marginLeft: '1rem' }} />
           </div>
           <div style={{ fontFamily: "'Playfair Display',serif", color: '#fff', lineHeight: 2, textAlign: 'center' }}>
@@ -236,14 +257,14 @@ export default function Home() {
             <p style={{ fontSize: '.95rem', color: 'rgba(255,255,255,.85)', marginBottom: '1.5rem', lineHeight: 2 }}>
               De cette rencontre naquit une amitié,<br />
               De cette amitié émergea une complicité troublante,<br />
-              De cette complicité... quelque chose que ni l'un ni l'autre<br />
-              n'osait encore appeler par son nom.
+              De cette complicité... quelque chose que ni l&apos;un ni l&apos;autre<br />
+              n&apos;osait encore appeler par son nom.
             </p>
             <p style={{ fontSize: '1.6rem', fontWeight: 600, color: '#fff', marginBottom: '1.5rem', letterSpacing: '.1em' }}>
-              L'amour.
+              L&apos;amour.
             </p>
             <p style={{ fontSize: '.95rem', color: 'rgba(255,255,255,.85)', marginBottom: '1.5rem', lineHeight: 2 }}>
-              Ils auraient pu l'ignorer.<br />
+              Ils auraient pu l&apos;ignorer.<br />
               <span style={{ color: '#C9A84C', fontStyle: 'italic' }}>Ils ont choisi de le vivre.</span>
             </p>
             <p style={{ fontSize: '.9rem', color: 'rgba(255,255,255,.75)', marginBottom: '1.5rem', lineHeight: 2 }}>
@@ -254,8 +275,8 @@ export default function Home() {
             </p>
             <div style={{ width: 60, height: 1, background: 'rgba(201,168,76,.4)', margin: '1.5rem auto' }} />
             <p style={{ fontSize: '.95rem', color: 'rgba(255,255,255,.85)', marginBottom: '1rem', lineHeight: 2 }}>
-              Alors aujourd'hui, après tout ce chemin parcouru côte à côte,<br />
-              <span style={{ fontFamily: "'Playfair Display',serif", fontSize: '1.1rem', color: '#fff', fontWeight: 600 }}>Ingrid & Ulrich</span> ont décidé de rendre éternel<br />
+              Alors aujourd&apos;hui, après tout ce chemin parcouru côte à côte,<br />
+              <span style={{ fontFamily: "'Playfair Display',serif", fontSize: '1.1rem', color: '#fff', fontWeight: 600 }}>Ingrid &amp; Ulrich</span> ont décidé de rendre éternel<br />
               ce qui a commencé par un simple message.
             </p>
             <p style={{ fontSize: '1rem', fontStyle: 'italic', color: '#C9A84C', marginTop: '1rem' }}>
@@ -304,7 +325,7 @@ export default function Home() {
       {/* COUNTDOWN */}
       <section style={{ background: blue, padding: '3.5rem 1.5rem', textAlign: 'center' as const, position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 30% 50%,rgba(255,255,255,.06),transparent 60%)' }} />
-        <p style={{ position: 'relative', fontSize: '.58rem', letterSpacing: '.25em', textTransform: 'uppercase' as const, color: 'rgba(255,255,255,.55)', marginBottom: '2rem' }}>L'aventure commence dans…</p>
+        <p style={{ position: 'relative', fontSize: '.58rem', letterSpacing: '.25em', textTransform: 'uppercase' as const, color: 'rgba(255,255,255,.55)', marginBottom: '2rem' }}>L&apos;aventure commence dans…</p>
         <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', gap: '.5rem', flexWrap: 'wrap' as const }}>
           {[['Jours', days], ['Heures', hours], ['Min', mins], ['Sec', secs]].map(([label, val], i) => (
             <>
@@ -343,9 +364,10 @@ export default function Home() {
       </section>
 
       {/* RSVP */}
-      <section id="rsvp" style={{ background: '#e8f0fb', padding: '4rem 1.5rem', '--section-color': '#003380', '--section-muted': '#5a6a7a' } as React.CSSProperties}>
+      <section id="rsvp" style={{ background: '#e8f0fb', padding: '4rem 1.5rem' }}>
         <div style={{ maxWidth: 560, margin: '0 auto' }}>
-          <div className="reveal"><div style={{ fontSize: '.58rem', letterSpacing: '.25em', textTransform: 'uppercase' as const, color: gold, fontWeight: 600, marginBottom: '.8rem', display: 'flex', alignItems: 'center', gap: '.6rem' }}>
+          <div className="reveal">
+            <div style={{ fontSize: '.58rem', letterSpacing: '.25em', textTransform: 'uppercase' as const, color: gold, fontWeight: 600, marginBottom: '.8rem', display: 'flex', alignItems: 'center', gap: '.6rem' }}>
               <span style={{ display: 'block', width: 20, height: 2, background: gold, borderRadius: 2 }} />
               Confirmation
             </div>
@@ -354,7 +376,8 @@ export default function Home() {
               <div style={{ flex: 1, height: 1, background: 'rgba(201,168,76,.4)' }} />
               <div style={{ width: 8, height: 8, background: gold, transform: 'rotate(45deg)', flexShrink: 0 }} />
               <div style={{ flex: 1, height: 1, background: 'rgba(201,168,76,.4)' }} />
-            </div></div>
+            </div>
+          </div>
           <div className="reveal" style={{ background: '#fff', borderRadius: 20, padding: '2rem 1.4rem', boxShadow: '0 4px 40px rgba(0,71,171,.1)', border: `1px solid ${border}`, marginTop: '1.5rem' }}>
             <p style={{ fontSize: '.76rem', color: '#5a6a7a', marginBottom: '1.3rem', textAlign: 'center' as const }}>Confirmez votre venue pour ce grand jour</p>
             {rsvpState === 'idle' && (
@@ -396,7 +419,9 @@ export default function Home() {
             )}
             {rsvpState === 'confirmed' && confirmedData && (
               <div style={{ display: 'flex', flexDirection: 'column' as const, alignItems: 'center', gap: '1.2rem' }}>
-                <p style={{ fontSize: '.76rem', color: muted, textAlign: 'center' as const }}>Présence confirmée ! Téléchargez votre carte d'accès :</p>
+                <p style={{ fontSize: '.76rem', color: muted, textAlign: 'center' as const }}>
+                  {cardDownloaded ? '✅ Carte téléchargée !' : '⏳ Téléchargement de votre carte en cours...'}
+                </p>
                 <div id="confirm-card" style={{ width: '100%', maxWidth: 300, borderRadius: 20, padding: '2rem 1.5rem', textAlign: 'center' as const, background: confirmedData.bg, color: confirmedData.fg, boxShadow: '0 12px 40px rgba(0,0,0,.2)', position: 'relative', overflow: 'hidden' }}>
                   <div style={{ position: 'absolute', top: -30, right: -30, width: 100, height: 100, borderRadius: '50%', background: 'rgba(255,255,255,.1)' }} />
                   <div style={{ width: 44, height: 44, borderRadius: '50%', background: 'rgba(255,255,255,.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto .8rem', fontSize: '1.2rem', position: 'relative', zIndex: 1 }}>✓</div>
@@ -404,22 +429,44 @@ export default function Home() {
                   <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '1.5rem', fontWeight: 600, marginBottom: '.2rem', position: 'relative', zIndex: 1 }}>Ingrid &amp; Ulrich</div>
                   <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '1rem', fontStyle: 'italic', opacity: .9, marginBottom: '.6rem', position: 'relative', zIndex: 1 }}>{confirmedData.name}</div>
                   <div style={{ fontSize: '.72rem', opacity: .9, fontStyle: 'italic', lineHeight: 1.5, padding: '0 .5rem', marginBottom: '.6rem', position: 'relative', zIndex: 1 }}>
-                    Merci d'avoir confirmé votre présence au mariage. Nous serons ravis de célébrer ce moment avec vous.
+                    Merci d&apos;avoir confirmé votre présence au mariage. Nous serons ravis de célébrer ce moment avec vous.
                   </div>
-                  <div style={{ fontSize: '.58rem', letterSpacing: '.12em', textTransform: 'uppercase' as const, padding: '.3rem .8rem', borderRadius: 50, background: 'rgba(255,255,255,.2)', display: 'inline-block', position: 'relative', zIndex: 1 }}>
+                  <div style={{ fontSize: '.58rem', letterSpacing: '.12em', textTransform: 'uppercase' as const, padding: '.3rem .8rem', borderRadius: 50, background: 'rgba(255,255,255,.2)', display: 'inline-block', position: 'relative', zIndex: 1, marginBottom: '.8rem' }}>
                     ({confirmedData.group}) · {confirmedData.side === 'marie' ? 'Marié' : 'Mariée'}
                   </div>
+                  <div style={{ width: '80%', height: 1, background: 'rgba(255,255,255,.2)', margin: '.5rem auto .8rem', position: 'relative', zIndex: 1 }} />
+                  <div style={{ fontSize: '.58rem', letterSpacing: '.1em', textTransform: 'uppercase' as const, opacity: .7, marginBottom: '.5rem', position: 'relative', zIndex: 1 }}>Programme</div>
+                  <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '.3rem', position: 'relative', zIndex: 1 }}>
+                    {[
+                      { time: '10h00', name: 'La Dote' },
+                      { time: '13h00', name: 'Cérémonie Civile' },
+                      { time: '14h00', name: 'Cérémonie Religieuse' },
+                    ].map(({ time, name }) => (
+                      <div key={time} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '.2rem .5rem', background: 'rgba(255,255,255,.12)', borderRadius: 6 }}>
+                        <span style={{ fontSize: '.6rem', fontWeight: 600, opacity: .9 }}>{time}</span>
+                        <span style={{ fontSize: '.6rem', opacity: .85 }}>{name}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div style={{ marginTop: '.8rem', fontSize: '.6rem', opacity: .7, position: 'relative', zIndex: 1 }}>📅 Vendredi 31 Juillet 2026</div>
+                  <div style={{ fontSize: '.58rem', opacity: .6, position: 'relative', zIndex: 1 }}>📍 Pete Metam, Bandjoun</div>
                 </div>
-                <button onClick={() => {
-                  const card = document.getElementById('confirm-card')
-                  if ((window as any).html2canvas && card) {
-                    (window as any).html2canvas(card, { scale: 3, backgroundColor: null, useCORS: true }).then((canvas: any) => {
-                      const a = document.createElement('a'); a.download = 'invitation-ingrid-ulrich.png'; a.href = canvas.toDataURL('image/png'); a.click()
-                    })
-                  } else { window.print() }
-                }} style={{ padding: '.8rem 1.6rem', background: blue, color: '#fff', border: 'none', borderRadius: 50, fontSize: '.68rem', letterSpacing: '.1em', textTransform: 'uppercase' as const, fontFamily: "'Inter',sans-serif", fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 14px rgba(0,71,171,.3)' }}>
-                  ⬇️ Télécharger ma carte
-                </button>
+                {cardDownloaded ? (
+                  <div style={{ textAlign: 'center' as const }}>
+                    <p style={{ fontSize: '.72rem', color: muted, marginBottom: '.8rem' }}>
+                      Vous souhaitez télécharger à nouveau votre carte ?
+                    </p>
+                    <button onClick={() => downloadCard(false)}
+                      style={{ padding: '.8rem 1.6rem', background: blue, color: '#fff', border: 'none', borderRadius: 50, fontSize: '.68rem', letterSpacing: '.1em', textTransform: 'uppercase' as const, fontFamily: "'Inter',sans-serif", fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 14px rgba(0,71,171,.3)' }}>
+                      ⬇️ Re-télécharger ma carte
+                    </button>
+                  </div>
+                ) : (
+                  <button onClick={() => downloadCard(false)}
+                    style={{ padding: '.8rem 1.6rem', background: blue, color: '#fff', border: 'none', borderRadius: 50, fontSize: '.68rem', letterSpacing: '.1em', textTransform: 'uppercase' as const, fontFamily: "'Inter',sans-serif", fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 14px rgba(0,71,171,.3)' }}>
+                    ⬇️ Télécharger ma carte
+                  </button>
+                )}
               </div>
             )}
             {rsvpState === 'declined' && (
@@ -465,7 +512,6 @@ export default function Home() {
             <div style={{ display: 'flex', gap: '.7rem', marginBottom: '.7rem' }}>
               <input value={msgName} onChange={e => setMsgName(e.target.value)} placeholder="Votre prénom"
                 style={{ flex: 1, padding: '.8rem .9rem', border: `1.5px solid ${border}`, borderRadius: 11, fontFamily: "'Inter',sans-serif", fontSize: '.8rem', outline: 'none', background: '#fff' }} />
-
             </div>
             <button onClick={handleSendMsg} disabled={msgLoading}
               style={{ width: '100%', padding: '.9rem', background: blue, color: '#fff', border: 'none', borderRadius: 12, fontSize: '.7rem', letterSpacing: '.1em', textTransform: 'uppercase' as const, fontFamily: "'Inter',sans-serif", fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 14px rgba(0,71,171,.3)', opacity: msgLoading ? .6 : 1 }}>
@@ -478,7 +524,7 @@ export default function Home() {
           <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '.8rem' }}>
             {messages.map(m => (
               <div key={m.id} style={{ background: '#fff', borderRadius: 14, padding: '1.2rem 1.3rem', boxShadow: '0 2px 12px rgba(0,71,171,.07)', border: `1px solid ${border}` }}>
-                <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '1rem', fontStyle: 'italic', color: textColor, marginBottom: '.6rem', lineHeight: 1.6 }}>"{m.message}"</div>
+                <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '1rem', fontStyle: 'italic', color: textColor, marginBottom: '.6rem', lineHeight: 1.6 }}>&quot;{m.message}&quot;</div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '.6rem', textTransform: 'uppercase' as const, letterSpacing: '.1em' }}>
                   <span style={{ color: blue, fontWeight: 600 }}>{m.author}</span>
                   <span style={{ color: muted }}>{new Date(m.created_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}</span>
@@ -517,4 +563,3 @@ export default function Home() {
     </>
   )
 }
-
