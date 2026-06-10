@@ -1,3 +1,33 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "next build",
+  "outputDirectory": ".next"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 'use client'
 import { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
@@ -45,10 +75,10 @@ export default function Home() {
   const [confirmedData, setConfirmedData] = useState<{name:string;group:string;side:string;bg:string;fg:string}|null>(null)
   const [rsvpLoading, setRsvpLoading] = useState(false)
   const [cardDownloaded, setCardDownloaded] = useState(false)
-  const [messages, setMessages] = useState<Msg[]>([])
+  // Only store the message sent by this user in this session
+  const [myMessage, setMyMessage] = useState<Msg | null>(null)
   const [msgText, setMsgText] = useState('')
   const [msgName, setMsgName] = useState('')
-  const [msgFam, setMsgFam] = useState('')
   const [msgLoading, setMsgLoading] = useState(false)
   const [toast, setToast] = useState({ msg: '', show: false })
   const [musicPlaying, setMusicPlaying] = useState(false)
@@ -95,20 +125,6 @@ export default function Home() {
     }
   }
 
-  const fetchMsgs = async () => {
-    try {
-      const r = await fetch('/api/messages')
-      const d = await r.json()
-      if (d.messages) setMessages(d.messages)
-    } catch {}
-  }
-
-  useEffect(() => {
-    fetchMsgs()
-    const id = setInterval(fetchMsgs, 15000)
-    return () => clearInterval(id)
-  }, [])
-
   useEffect(() => {
     const obs = new IntersectionObserver(
       entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }),
@@ -138,17 +154,16 @@ export default function Home() {
       setRsvpState('confirmed')
       setCardDownloaded(false)
       showToast('Présence confirmée ! 🎉')
-      // Auto download after short delay to let card render
-      setTimeout(() => downloadCard(true), 1500)
     } catch { showToast('Erreur, réessayez') }
     finally { setRsvpLoading(false) }
   }
 
   const handleDecline = async () => {
     if (!rsvpName.trim()) { showToast('Veuillez entrer votre nom 😊'); return }
+    if (!activeSide || !selectedGroup) { showToast('Veuillez sélectionner votre groupe 😊'); return }
     await fetch('/api/rsvp', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: rsvpName.trim(), status: 'declined' })
+      body: JSON.stringify({ name: rsvpName.trim(), status: 'declined', group_name: selectedGroup, side: activeSide })
     }).catch(() => {})
     setRsvpState('declined')
     showToast('Merci pour votre réponse 💙')
@@ -163,7 +178,18 @@ export default function Home() {
         body: JSON.stringify({ name: msgName.trim(), family: '', message: msgText.trim() })
       })
       const d = await r.json()
-      if (d.success) { setMsgText(''); setMsgName(''); setMsgFam(''); fetchMsgs(); showToast("Message envoyé au livre d'or ✉️") }
+      if (d.success) {
+        // Only show this user's own message
+        setMyMessage({
+          id: Date.now().toString(),
+          author: msgName.trim(),
+          message: msgText.trim(),
+          created_at: new Date().toISOString()
+        })
+        setMsgText('')
+        setMsgName('')
+        showToast("Message envoyé aux mariés ✉️")
+      }
     } catch { showToast('Erreur, réessayez') }
     finally { setMsgLoading(false) }
   }
@@ -207,7 +233,7 @@ export default function Home() {
     <>
       {/* NAV */}
       <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200, display: 'flex', justifyContent: 'center', gap: '1rem', padding: '.75rem 1rem', background: 'rgba(255,255,255,.97)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', borderBottom: `1px solid ${border}`, flexWrap: 'wrap' as const }}>
-        {[['#invitation','Accueil'],['#programme','Programme'],['#rsvp','Présence'],['#localisation','Lieu'],['#mots',"Livre d'or"]].map(([href, label]) => (
+        {[['#invitation','Accueil'],['#programme','Programme'],['#rsvp','Présence'],['#localisation','Lieu'],['#mots',"Mots Doux"]].map(([href, label]) => (
           <a key={href} href={href} style={{ textDecoration: 'none', color: blueDark, fontSize: '.6rem', letterSpacing: '.14em', textTransform: 'uppercase' as const, fontWeight: 600, padding: '.3rem .5rem', borderRadius: 6 }}>{label}</a>
         ))}
       </nav>
@@ -420,7 +446,7 @@ export default function Home() {
             {rsvpState === 'confirmed' && confirmedData && (
               <div style={{ display: 'flex', flexDirection: 'column' as const, alignItems: 'center', gap: '1.2rem' }}>
                 <p style={{ fontSize: '.76rem', color: muted, textAlign: 'center' as const }}>
-                  {cardDownloaded ? '✅ Carte téléchargée !' : '⏳ Téléchargement de votre carte en cours...'}
+                  Présence confirmée ! 🎉 Téléchargez votre carte ci-dessous pour l&apos;avoir avec vous le jour J.
                 </p>
                 <div id="confirm-card" style={{ width: '100%', maxWidth: 300, borderRadius: 20, padding: '2rem 1.5rem', textAlign: 'center' as const, background: confirmedData.bg, color: confirmedData.fg, boxShadow: '0 12px 40px rgba(0,0,0,.2)', position: 'relative', overflow: 'hidden' }}>
                   <div style={{ position: 'absolute', top: -30, right: -30, width: 100, height: 100, borderRadius: '50%', background: 'rgba(255,255,255,.1)' }} />
@@ -451,22 +477,10 @@ export default function Home() {
                   <div style={{ marginTop: '.8rem', fontSize: '.6rem', opacity: .7, position: 'relative', zIndex: 1 }}>📅 Vendredi 31 Juillet 2026</div>
                   <div style={{ fontSize: '.58rem', opacity: .6, position: 'relative', zIndex: 1 }}>📍 Pete Metam, Bandjoun</div>
                 </div>
-                {cardDownloaded ? (
-                  <div style={{ textAlign: 'center' as const }}>
-                    <p style={{ fontSize: '.72rem', color: muted, marginBottom: '.8rem' }}>
-                      Vous souhaitez télécharger à nouveau votre carte ?
-                    </p>
-                    <button onClick={() => downloadCard(false)}
-                      style={{ padding: '.8rem 1.6rem', background: blue, color: '#fff', border: 'none', borderRadius: 50, fontSize: '.68rem', letterSpacing: '.1em', textTransform: 'uppercase' as const, fontFamily: "'Inter',sans-serif", fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 14px rgba(0,71,171,.3)' }}>
-                      ⬇️ Re-télécharger ma carte
-                    </button>
-                  </div>
-                ) : (
-                  <button onClick={() => downloadCard(false)}
-                    style={{ padding: '.8rem 1.6rem', background: blue, color: '#fff', border: 'none', borderRadius: 50, fontSize: '.68rem', letterSpacing: '.1em', textTransform: 'uppercase' as const, fontFamily: "'Inter',sans-serif", fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 14px rgba(0,71,171,.3)' }}>
-                    ⬇️ Télécharger ma carte
-                  </button>
-                )}
+                <button onClick={() => downloadCard(false)}
+                  style={{ padding: '.8rem 1.6rem', background: blue, color: '#fff', border: 'none', borderRadius: 50, fontSize: '.68rem', letterSpacing: '.1em', textTransform: 'uppercase' as const, fontFamily: "'Inter',sans-serif", fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 14px rgba(0,71,171,.3)' }}>
+                  ⬇️ Télécharger ma carte
+                </button>
               </div>
             )}
             {rsvpState === 'declined' && (
@@ -503,34 +517,30 @@ export default function Home() {
       {/* MOTS DOUX */}
       <section id="mots" style={{ background: '#003380', padding: '4rem 1.5rem' }}>
         <div style={{ maxWidth: 560, margin: '0 auto' }}>
-          <div className="reveal">{sectionTag("Livre d'or")}{sectionTitle('Mots Doux')}{divider}
+          <div className="reveal">{sectionTag("Mots Doux")}{sectionTitle('Mots Doux')}{divider}
             <p style={{ fontSize: '.8rem', color: 'rgba(255,255,255,.85)', marginBottom: '1.5rem' }}>Laissez un message aux mariés ✉️</p>
           </div>
           <div className="reveal">
-            <textarea value={msgText} onChange={e => setMsgText(e.target.value)} placeholder="Votre message pour les mariés…"
-              style={{ width: '100%', padding: '.9rem', border: `1.5px solid ${border}`, borderRadius: 14, fontFamily: "'Inter',sans-serif", fontSize: '.82rem', resize: 'none', height: 100, outline: 'none', marginBottom: '.7rem', background: '#fff' }} />
-            <div style={{ display: 'flex', gap: '.7rem', marginBottom: '.7rem' }}>
-              <input value={msgName} onChange={e => setMsgName(e.target.value)} placeholder="Votre prénom"
-                style={{ flex: 1, padding: '.8rem .9rem', border: `1.5px solid ${border}`, borderRadius: 11, fontFamily: "'Inter',sans-serif", fontSize: '.8rem', outline: 'none', background: '#fff' }} />
-            </div>
-            <button onClick={handleSendMsg} disabled={msgLoading}
-              style={{ width: '100%', padding: '.9rem', background: blue, color: '#fff', border: 'none', borderRadius: 12, fontSize: '.7rem', letterSpacing: '.1em', textTransform: 'uppercase' as const, fontFamily: "'Inter',sans-serif", fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 14px rgba(0,71,171,.3)', opacity: msgLoading ? .6 : 1 }}>
-              {msgLoading ? 'Envoi…' : '✉️  Laisser un message'}
-            </button>
-          </div>
-          <div style={{ textAlign: 'center' as const, margin: '1.5rem 0 1rem', fontSize: '.62rem', letterSpacing: '.18em', textTransform: 'uppercase' as const, color: 'rgba(255,255,255,.6)' }}>
-            {messages.length} message{messages.length !== 1 ? 's' : ''}
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '.8rem' }}>
-            {messages.map(m => (
-              <div key={m.id} style={{ background: '#fff', borderRadius: 14, padding: '1.2rem 1.3rem', boxShadow: '0 2px 12px rgba(0,71,171,.07)', border: `1px solid ${border}` }}>
-                <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '1rem', fontStyle: 'italic', color: textColor, marginBottom: '.6rem', lineHeight: 1.6 }}>&quot;{m.message}&quot;</div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '.6rem', textTransform: 'uppercase' as const, letterSpacing: '.1em' }}>
-                  <span style={{ color: blue, fontWeight: 600 }}>{m.author}</span>
-                  <span style={{ color: muted }}>{new Date(m.created_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' })}</span>
+            {!myMessage ? (
+              <>
+                <textarea value={msgText} onChange={e => setMsgText(e.target.value)} placeholder="Votre message pour les mariés…"
+                  style={{ width: '100%', padding: '.9rem', border: `1.5px solid ${border}`, borderRadius: 14, fontFamily: "'Inter',sans-serif", fontSize: '.82rem', resize: 'none', height: 100, outline: 'none', marginBottom: '.7rem', background: '#fff' }} />
+                <div style={{ display: 'flex', gap: '.7rem', marginBottom: '.7rem' }}>
+                  <input value={msgName} onChange={e => setMsgName(e.target.value)} placeholder="Votre prénom"
+                    style={{ flex: 1, padding: '.8rem .9rem', border: `1.5px solid ${border}`, borderRadius: 11, fontFamily: "'Inter',sans-serif", fontSize: '.8rem', outline: 'none', background: '#fff' }} />
                 </div>
+                <button onClick={handleSendMsg} disabled={msgLoading}
+                  style={{ width: '100%', padding: '.9rem', background: blue, color: '#fff', border: 'none', borderRadius: 12, fontSize: '.7rem', letterSpacing: '.1em', textTransform: 'uppercase' as const, fontFamily: "'Inter',sans-serif", fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 14px rgba(0,71,171,.3)', opacity: msgLoading ? .6 : 1 }}>
+                  {msgLoading ? 'Envoi…' : '✉️  Envoyer mon message'}
+                </button>
+              </>
+            ) : (
+              <div style={{ background: 'rgba(255,255,255,.08)', borderRadius: 16, padding: '1.5rem', border: '1px solid rgba(255,255,255,.15)' }}>
+                <p style={{ fontSize: '.65rem', letterSpacing: '.15em', textTransform: 'uppercase' as const, color: gold, marginBottom: '.8rem' }}>✅ Votre message a été envoyé</p>
+                <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '1rem', fontStyle: 'italic', color: '#fff', marginBottom: '.6rem', lineHeight: 1.6 }}>&quot;{myMessage.message}&quot;</div>
+                <div style={{ fontSize: '.65rem', color: 'rgba(255,255,255,.6)', textTransform: 'uppercase' as const, letterSpacing: '.1em' }}>{myMessage.author}</div>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -563,3 +573,11 @@ export default function Home() {
     </>
   )
 }
+
+
+
+
+
+
+
+
