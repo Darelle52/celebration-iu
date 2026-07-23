@@ -313,7 +313,7 @@ export default function Home() {
           <div style={{ gridColumn: '1/-1', background: '#fff', borderRadius: 16, padding: '1.4rem 1rem', textAlign: 'center' as const, border: `1px solid ${border}`, boxShadow: '0 2px 16px rgba(0,71,171,.06)' }}>
             <div style={{ width: 42, height: 42, background: blueLight, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto .75rem', fontSize: '1.1rem' }}>📍</div>
             <div style={{ fontSize: '.55rem', letterSpacing: '.2em', textTransform: 'uppercase' as const, color: blue, fontWeight: 600, marginBottom: '.4rem' }}>Lieu</div>
-            <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '1.15rem', color: textColor, lineHeight: 1.3 }}>Pete Metam, Bandjoun</div>
+            <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '1.15rem', color: textColor, lineHeight: 1.3 }}>Bandjoun</div>
           </div>
         </div>
       </section>
@@ -341,10 +341,10 @@ export default function Home() {
           <div className="reveal">{sectionTagDark('Déroulement')}{sectionTitle('Programme', true)}{dividerDark}</div>
           <div className="reveal" style={{ marginTop: '1.5rem' }}>
             {[
-              { icon: '🎉',  time: '10h00', name: 'La Dote',              desc: 'Célébration Traditionnelle.', last: false },
-              { icon: '🏛️', time: '13h00', name: 'Cérémonie Civile',     desc: "Échange des vœux officiels.", last: false },
-              { icon: '⛪',  time: '14h00', name: 'Cérémonie Religieuse', desc: "Bénédiction de l'union devant Dieu et nos proches.", last: true },
-            ].map(({ icon, time, name, desc, last }) => (
+              { icon: '🎉',  time: '10h00', name: 'La Dote',              desc: 'Célébration Traditionnelle.', venue: 'Peter Metam', last: false },
+              { icon: '🏛️', time: '13h00', name: 'Cérémonie Civile',     desc: "Échange des vœux officiels.", venue: 'Centre climatique de Mbouo', last: false },
+              { icon: '⛪',  time: '15h30', name: 'Cérémonie Religieuse', desc: "Bénédiction de l'union devant Dieu et nos proches.", venue: 'Centre climatique de Mbouo', last: true },
+            ].map(({ icon, time, name, desc, venue, last }) => (
               <div key={name} style={{ display: 'flex', gap: '1.1rem', paddingBottom: last ? 0 : '2rem', position: 'relative' }}>
                 {!last && <div style={{ position: 'absolute', left: 19, top: 40, bottom: 0, width: 1, background: border }} />}
                 <div style={{ flexShrink: 0, width: 40, height: 40, background: blue, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem', color: '#fff', position: 'relative', zIndex: 1, boxShadow: '0 4px 14px rgba(0,71,171,.3)' }}>{icon}</div>
@@ -352,6 +352,7 @@ export default function Home() {
                   <div style={{ fontSize: '.58rem', letterSpacing: '.15em', textTransform: 'uppercase' as const, color: gold, fontWeight: 600, marginBottom: '.25rem' }}>{time}</div>
                   <div style={{ fontFamily: "'Playfair Display',serif", fontSize: '1.25rem', color: '#003380', fontWeight: 600 }}>{name}</div>
                   <div style={{ fontSize: '.76rem', color: '#5a6a7a', marginTop: '.2rem', lineHeight: 1.6 }}>{desc}</div>
+                  <div style={{ fontSize: '.72rem', color: blue, marginTop: '.35rem', fontWeight: 600 }}>📍 {venue}</div>
                 </div>
               </div>
             ))}
@@ -432,20 +433,23 @@ export default function Home() {
                   </div>
                   <div style={{ width: '80%', height: 1, background: 'rgba(255,255,255,.2)', margin: '.5rem auto .8rem', position: 'relative', zIndex: 1 }} />
                   <div style={{ fontSize: '.58rem', letterSpacing: '.1em', textTransform: 'uppercase' as const, opacity: .7, marginBottom: '.5rem', position: 'relative', zIndex: 1 }}>Programme</div>
-                  <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '.3rem', position: 'relative', zIndex: 1 }}>
+                  <div style={{ display: 'flex', flexDirection: 'column' as const, gap: '.35rem', position: 'relative', zIndex: 1 }}>
                     {[
-                      { time: '10h00', name: 'La Dote' },
-                      { time: '13h00', name: 'Cérémonie Civile' },
-                      { time: '14h00', name: 'Cérémonie Religieuse' },
-                    ].map(({ time, name }) => (
-                      <div key={time} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '.2rem .5rem', background: 'rgba(255,255,255,.12)', borderRadius: 6 }}>
-                        <span style={{ fontSize: '.6rem', fontWeight: 600, opacity: .9 }}>{time}</span>
-                        <span style={{ fontSize: '.6rem', opacity: .85 }}>{name}</span>
+                      { time: '10h00', name: 'La Dote', venue: 'Peter Metam' },
+                      { time: '13h00', name: 'Cérémonie Civile', venue: 'Centre climatique de Mbouo' },
+                      { time: '15h30', name: 'Cérémonie Religieuse', venue: 'Centre climatique de Mbouo' },
+                    ].map(({ time, name, venue }) => (
+                      <div key={time} style={{ padding: '.3rem .5rem', background: 'rgba(255,255,255,.12)', borderRadius: 6, textAlign: 'left' as const }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <span style={{ fontSize: '.6rem', fontWeight: 600, opacity: .95 }}>{time}</span>
+                          <span style={{ fontSize: '.6rem', opacity: .9 }}>{name}</span>
+                        </div>
+                        <div style={{ fontSize: '.52rem', opacity: .7, marginTop: '.1rem' }}>📍 {venue}</div>
                       </div>
                     ))}
                   </div>
                   <div style={{ marginTop: '.8rem', fontSize: '.6rem', opacity: .7, position: 'relative', zIndex: 1 }}>📅 Vendredi 31 Juillet 2026</div>
-                  <div style={{ fontSize: '.58rem', opacity: .6, position: 'relative', zIndex: 1 }}>📍 Pete Metam, Bandjoun</div>
+                  <div style={{ fontSize: '.58rem', opacity: .6, position: 'relative', zIndex: 1 }}>📍 Bandjoun</div>
                 </div>
                 <button onClick={() => downloadCard(false)}
                   style={{ padding: '.8rem 1.6rem', background: blue, color: '#fff', border: 'none', borderRadius: 50, fontSize: '.68rem', letterSpacing: '.1em', textTransform: 'uppercase' as const, fontFamily: "'Inter',sans-serif", fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 14px rgba(0,71,171,.3)' }}>
